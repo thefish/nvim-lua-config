@@ -1,0 +1,6 @@
+plugin/*
+data/*
+undo/*
+backup/*
+swap/*
+sessions/*
