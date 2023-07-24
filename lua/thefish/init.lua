@@ -1,9 +1,3 @@
--- TODO:  Fix that shit
-
--- FIXME: this is a bug
-
--- FIXME: that shit
-
 Rtdir = vim.fn.stdpath('config')
 vim.wo.number = true
 
@@ -398,6 +392,7 @@ local mappings = {
             s = { function() require('persistence').load() end, 'Load session for current working dir' },
             l = { function() require('persistence').load({ last = true }) end, 'Restore last session' },
             d = { function() require('persistence').stop() end, 'Do not save session on exit' },
+            t = { function() require('telescope.builtin').colorscheme({enable_preview=true}) end, 'Change theme'}
         },
 
     },
