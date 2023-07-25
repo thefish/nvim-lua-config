@@ -336,6 +336,7 @@ local mappings = {
                     require('thefish.changed-on-branch')(Rtdir)
                 end, "Files changed on branch" },
             },
+            t = {"<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff"},
 
         },
         w = {
