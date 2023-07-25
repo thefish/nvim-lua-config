@@ -335,6 +335,11 @@ local mappings = {
                 c = { function()
                     require('thefish.changed-on-branch')(Rtdir)
                 end, "Files changed on branch" },
+                m = {"<cmd>Telescope git_commits<cr>", "Commits"},
+                s = {"<cmd>Telescope git_status<cr>", "Status"},
+                t = {"<cmd>Telescope git_stash<cr>", "Stash"},
+                b = {"<cmd>Telescope git_bcommits<cr>", "Commits for curren buffer"},
+                l = {"<cmd>Telescope git_bcommits_range<cr>", "Commits for curren buffer"},
             },
             t = {"<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff"},
 
@@ -454,10 +459,12 @@ wk.register(
 wk.register(
     {
         ["jh"] = { "<esc>", "exit visual mode on fast jh" },
-        ["<c-d>"] = { "<esc>yypi", "duplicate line" },
+        -- yyp instead of that akshually
+        -- ["<c-d>"] = { "<esc>yypi", "duplicate line" },
         ["<C-z>"] = { "<Esc>u<cr>v", "Undo on ctrl+z" },
         ["<F2>"] = { "<esc><cmd>w<cr>v", "Save file" },
         ["<C-y>"] = { ":<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u", "paste from system clipboard" },
+        ["<C-l>"] = {"<cmd>Telescope git_bcommits<cr>", "Commits for selected lines"},
     },
     { mode = "v", noremap = true }
 )
