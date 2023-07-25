@@ -44,7 +44,6 @@ local lazyOpts = {
 }
 
 local function nvimtree_on_attach(bufnr)
-    print("reconfiuring nvim-tree")
     local api = require('nvim-tree.api')
 
     local function opts(desc)
@@ -90,8 +89,6 @@ local plugins = {
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         event = "VeryLazy",
         init = function()
-            print("nvim-tree init")
-
             require('nvim-tree').setup({
                 on_attach = nvimtree_on_attach,
                 sort_by = "case_sensitive",
