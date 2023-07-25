@@ -57,6 +57,14 @@ local function nvimtree_on_attach(bufnr)
     vim.keymap.del('n', '<C-v>', { buffer = bufnr })
     vim.keymap.del('n', 's', { buffer = bufnr })
     vim.keymap.set('n', 's', api.node.open.vertical, opts('Open: Vertical Split'))
+
+    local ntfns = require('thefish.nvim-tree')
+
+    vim.keymap.set('n', '<C-f>', function()
+        local node = require('nvim-tree.api').tree.get_node_under_cursor()
+        if not node then return end
+        ntfns.grep_folder(node.absolute_path)
+    end, opts('Find files containing textin folder'))
 end
 
 local plugins = {
