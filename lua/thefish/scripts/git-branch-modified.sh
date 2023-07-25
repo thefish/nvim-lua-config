@@ -1,6 +1,5 @@
 #!/bin/bash
 BRANCH="$PROJECT_MAIN_BRANCH"
-#BRANCH="master"
 
 if [[ -z "$BRANCH" ]]; then
     BRANCH="master"

@@ -63,7 +63,7 @@ local function nvimtree_on_attach(bufnr)
         local node = require('nvim-tree.api').tree.get_node_under_cursor()
         if not node then return end
         ntfns.grep_folder(node.absolute_path)
-    end, opts('Find files containing textin folder'))
+    end, opts('Search for text in folder'))
 end
 
 local plugins = {
@@ -307,7 +307,7 @@ local plugins = {
     },
 }
 
---  TODO   check it twice
+--  TODO:   check it twice
 
 require("lazy").setup(plugins, lazyOpts)
 
