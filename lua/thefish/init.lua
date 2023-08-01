@@ -236,6 +236,7 @@ local plugins = {
     -- git client
     {'tpope/vim-fugitive', event="VeryLazy"},
     {'lewis6991/gitsigns.nvim'},
+
     -- colorschemes
     {
         'rose-pine/neovim',
@@ -308,6 +309,9 @@ local plugins = {
 
 require("lazy").setup(plugins, lazyOpts)
 
+-- gitsigns
+require('gitsigns').setup()
+
 -- debugging
 
 require("thefish.debugging")
@@ -317,7 +321,7 @@ require("thefish.debugging")
 local mappings = {
     ["<leader>"] = {
         p = {
-            name = "+project",
+            name = "project",
             f = { "<cmd>Telescope find_files<cr>", "Find files" },
             r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
             s = { function()
@@ -339,7 +343,7 @@ local mappings = {
 
         },
         w = {
-            name = "+word",
+            name = "word",
             c = { "viwu~W", "Capitalize" },
             l = { "viwuW", "lowercase" },
             u = { "viwUW", "UPPERCASE" },
@@ -347,8 +351,29 @@ local mappings = {
                 require('telescope.builtin').grep_string()
             end, "Search in project" },
         },
+
+        h = {
+            name = "git ops",
+            s = {function() require('gitsigns').stage_hunk() end, "Stage hunk"},
+            r = {function() require('gitsigns').reset_hunk() end, "Reset hunk"},
+            S = {function() require('gitsigns').stage_buffer() end, "Stage buffer"},
+            u = {function() require('gitsigns').undo_stage_hunk() end, "Undo stage hunk"},
+            U = {function() require('gitsigns').undo_stage_buffer() end, "Undo stage "},
+            R = {function() require('gitsigns').reset_buffer() end, "Reset buffer"},
+            p = {function() require('gitsigns').preview_hunk() end, "Preview hunk"},
+            b = {function() require('gitsigns').blame_line({full=true}) end, "Blame line"},
+            d = {function() require('gitsigns').diffthis() end, "Diff this"},
+            D = {function() require('gitsigns').diffthis('~') end, "Diff this"},
+        },
+
+        t = {
+            name = "Toggles",
+            b = {function() require('gitsigns').toggle_current_line_blame() end, "Current line blame"},
+            d = {function() require('gitsigns').toggle_deleted() end, "deleted"},
+        },
+
         g = {
-            name = "+introspection",
+            name = "introspection",
             D = { function() require('lsp').buf.declaration() end, "Go to declaration" },
             d = { function() require('telescope.builtin').lsp_definitions() end, "Go to definition" },
             i = { function() require('telescope.builtin').lsp_implementations() end, "Go to implementation" },
@@ -414,6 +439,19 @@ local mappings = {
     ["]d"] = { function() vim.diagnostic.goto_prev() end, "Diag prev" },
     ["<C-b>"] = { function() require('dap').toggle_breakpoint() end, "Breakpoint toggle" },
 
+    [']c'] = { function()
+        if vim.wo.diff then return ']c' end
+        vim.schedule(function() require('gitsigns').next_hunk() end)
+        return '<Ignore>'
+    end, 'Next hunk' },
+    ['[c'] = { function()
+        if vim.wo.diff then return '[c' end
+        vim.schedule(function() require('gitsigns').prev_hunk() end)
+        return '<Ignore>'
+    end, "Prev hunk" },
+
+
+
 }
 local wkOpts = {
     mode = "n", -- NORMAL mode
@@ -454,18 +492,26 @@ wk.register(
     },
     { mode = "n", noremap = true }
 )
-wk.register(
-    {
-        ["jh"] = { "<esc>", "exit visual mode on fast jh" },
-        -- yyp instead of that akshually
-        -- ["<c-d>"] = { "<esc>yypi", "duplicate line" },
-        ["<C-z>"] = { "<Esc>u<cr>v", "Undo on ctrl+z" },
-        ["<F2>"] = { "<esc><cmd>w<cr>v", "Save file" },
-        ["<C-y>"] = { ":<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u", "paste from system clipboard" },
-        ["<C-l>"] = {"<cmd>Telescope git_bcommits<cr>", "Commits for selected lines"},
+
+wk.register({
+    ["jh"] = { "<esc>", "exit visual mode on fast jh" },
+    -- yyp instead of that akshually
+    -- ["<c-d>"] = { "<esc>yypi", "duplicate line" },
+    ["<C-z>"] = { "<Esc>u<cr>v", "Undo on ctrl+z" },
+    ["<F2>"] = { "<esc><cmd>w<cr>v", "Save file" },
+    ["<C-y>"] = { ":<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u", "paste from system clipboard" },
+    ["<C-l>"] = {"<cmd>Telescope git_bcommits<cr>", "Commits for selected lines"},
+
+    ["<leader>"] = {
+        h = {
+            name = "git ops",
+            s = {function() require('gitsigns').stage_hunk() {vim.fn.line('.'), vim.fn.line('v')} end, "stage selected"},
+            r = {function() require('gitsigns').reset_hunk() {vim.fn.line('.'), vim.fn.line('v')} end, "reset selected"},
+        },
     },
-    { mode = "v", noremap = true }
-)
+},
+{ mode = "v", noremap = true })
+
 wk.register(
     {
         ["<C-z>"] = { "<Esc>u<cr>i", "Undo on ctrl+z" },
