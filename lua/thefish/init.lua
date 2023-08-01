@@ -233,14 +233,12 @@ local plugins = {
         'leoluz/nvim-dap-go',
         dependencies = { 'mfussenegger/nvim-dap' }
     },
-
     -- colorschemes
     {
         'rose-pine/neovim',
         name = 'rose-pine',
         event = "VeryLazy",
     },
-    { 'tomasiser/vim-code-dark' },
     {
         "folke/tokyonight.nvim",
         event = "VeryLazy",
@@ -253,10 +251,6 @@ local plugins = {
     },
     {
         'projekt0n/github-nvim-theme',
-        event = "VeryLazy",
-    },
-    {
-        'mhartington/oceanic-next',
         event = "VeryLazy",
     },
     {
