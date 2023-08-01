@@ -444,10 +444,14 @@ wk.register(
         ["<C-Up>"] = { "<c-w>k", "" },
         ["<C-Down>"] = { "<c-w>j", "" },
         -- set moving between windows to ctrl+hjkl
-        ["<C-l>"] = { "<c-w>l", "" },
-        ["<C-h>"] = { "<c-w>h", "" },
-        ["<C-k>"] = { "<c-w>k", "" },
-        ["<C-j>"] = { "<c-w>j", "" },
+        ["<C-l>"] = { "<c-w>l", "Switch window right" },
+        ["<C-h>"] = { "<c-w>h", "Switch window left" },
+        ["<C-k>"] = { "<c-w>k", "Switch window up" },
+        ["<C-j>"] = { "<c-w>j", "Switch window down" },
+
+        --center on Ctrl+d and Ctrl+u
+        ["<C-d>"] = { "<c-d>zz", "Move half page down and center" },
+        ["<C-u>"] = { "<c-u>zz", "Move half page down and center" },
 
 
     },
