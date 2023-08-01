@@ -233,6 +233,9 @@ local plugins = {
         'leoluz/nvim-dap-go',
         dependencies = { 'mfussenegger/nvim-dap' }
     },
+    -- git client
+    {'tpope/vim-fugitive', event="VeryLazy"},
+    {'lewis6991/gitsigns.nvim'},
     -- colorschemes
     {
         'rose-pine/neovim',

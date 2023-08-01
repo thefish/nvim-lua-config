@@ -23,6 +23,7 @@ lsp.ensure_installed({
     'gopls',
     'tsserver',
     'rust_analyzer',
+    'golangci-lint-langserver',
 })
 
 
