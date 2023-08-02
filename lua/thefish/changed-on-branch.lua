@@ -15,11 +15,18 @@ local changed_on_branch = function(rtdir)
     print(rtdir)
     pickers.new {
         results_title = 'Modified on current branch',
-        finder = finders.new_oneshot_job({ rtdir .. '/lua/thefish/scripts/git-branch-modified.sh', 'list' }),
+        finder = finders.new_oneshot_job({
+            rtdir .. '/lua/thefish/scripts/git-branch-modified.sh',
+            'list'
+        }),
         sorter = sorters.get_fuzzy_file(),
         previewer = previewers.new_termopen_previewer {
             get_command = function(entry)
-                return { rtdir .. '/lua/thefish/scripts/git-branch-modified.sh', 'diff', entry.value }
+                return {
+                    rtdir .. '/lua/thefish/scripts/git-branch-modified.sh',
+                    'diff',
+                    entry.value
+                }
             end
         },
     }:find()
