@@ -241,6 +241,7 @@ local plugins = {
     },
     -- git client
     { 'lewis6991/gitsigns.nvim' },
+    { 'sindrets/diffview.nvim'},
 
     -- colorschemes
     {
@@ -338,6 +339,7 @@ local mappings = {
                 c = { function()
                     require('thefish.changed-on-branch')(Rtdir)
                 end, "Files changed on branch" },
+                D = { "<cmd>DiffViewOpen origin/master..HEAD<cr>","Show diffview to origin/master"},
                 m = { "<cmd>Telescope git_commits<cr>", "Commits" },
                 s = { "<cmd>Telescope git_status<cr>", "Status" },
                 t = { "<cmd>Telescope git_stash<cr>", "Stash" },
