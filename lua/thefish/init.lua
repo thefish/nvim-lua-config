@@ -105,6 +105,7 @@ local plugins = {
                     group_empty = true,
                 },
                 filters = {
+                    git_ignored = false,
                     --    dotfiles = true,
                 },
                 update_focused_file = {
