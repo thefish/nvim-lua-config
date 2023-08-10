@@ -240,7 +240,6 @@ local plugins = {
         dependencies = { 'mfussenegger/nvim-dap' }
     },
     -- git client
-    { 'tpope/vim-fugitive',     event = "VeryLazy" },
     { 'lewis6991/gitsigns.nvim' },
 
     -- colorschemes
