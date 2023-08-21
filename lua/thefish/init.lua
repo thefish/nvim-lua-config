@@ -70,6 +70,19 @@ local function nvimtree_on_attach(bufnr)
         if not node then return end
         ntfns.grep_folder(node.absolute_path)
     end, opts('Search for text in folder'))
+
+    vim.keymap.set('n', '<C-a>', function()
+        local node = require('nvim-tree.api').tree.get_node_under_cursor()
+        if not node then return end
+        ntfns.git_add_path(node.absolute_path)
+    end, opts('Git add path'))
+
+    vim.keymap.set('n', '<C-x>', function()
+        local node = require('nvim-tree.api').tree.get_node_under_cursor()
+        if not node then return end
+        ntfns.git_rm_path(node.absolute_path)
+    end, opts('Git rm path (cached)'))
+
 end
 
 local plugins = {
