@@ -1,6 +1,8 @@
-Just my collection of NeoVim Lua scripts, based on Lazy package manager.
+Just a collection of NeoVim Lua scripts, based on Lazy package manager.
+Tried to keep config minimal, with at least debugging, introspetion and completion functionality.
+Have fun!
 
-to install:
+Install:
 ---
 ```
 mv ~/.config/nvim ~/.config/nvim.bak #create backup
@@ -22,8 +24,12 @@ Custom scripting
 
 ```<leader>p g c``` Opens diff with git master/main tree in telescope viewer. Useful when you are doing merge requests.
 
+##### small telescope hacks
+
+```<c-q>``` in an telesope find window to open the contents as a nvim's quickfix list. cnext and cprev to navigate. 
+
+
 Custom themes
 ---
 ir_black2 is the theme i like the most, and it is included but not modified for usage with NeoVim yet.
 
-Have fun!
