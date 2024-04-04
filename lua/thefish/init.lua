@@ -227,7 +227,20 @@ local plugins = {
             { 'hrsh7th/nvim-cmp' },     -- Required
             { 'hrsh7th/cmp-nvim-lsp' }, -- Required
             { 'L3MON4D3/LuaSnip' },     -- Required
-        }
+        },
+        init = function ()
+            local lsp_zero = require('lsp-zero')
+            require('mason').setup({})
+            require('mason-lspconfig').setup({
+                handlers = {
+                    lsp_zero.default_setup,
+                    lua_ls = function()
+                        local lua_opts = lsp_zero.nvim_lua_ls()
+                        require('lspconfig').lua_ls.setup(lua_opts)
+                    end,
+                },
+            })
+        end,
     },
     { "rcarriga/nvim-notify" },
     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
@@ -329,6 +342,10 @@ local plugins = {
 
 require("lazy").setup(plugins, lazyOpts)
 
+-- mason lspconfig
+
+
+
 -- gitsigns
 require('gitsigns').setup()
 
@@ -385,6 +402,12 @@ local mappings = {
             b = { function() require('gitsigns').blame_line({ full = true }) end, "Blame line" },
             d = { function() require('gitsigns').diffthis() end, "Diff this" },
             D = { function() require('gitsigns').diffthis('~') end, "Diff this" },
+            v = {
+                -- function()
+                -- local branch = os.getenv("PROJECT_MAIN_BRANCH") or "master"
+                -- return "<Esc>:DiffviewOpen origin/" .. branch .. "... --imply-local<cr>" end, "DiffView this"
+                "<Esc>:DiffviewOpen origin/master... --imply-local<cr>", "DiffView this"
+            }
         },
 
         t = {
