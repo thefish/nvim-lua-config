@@ -58,7 +58,7 @@ return function()
                 }
             },
 
-            t = {
+            o = {
                 name = "Toggles",
                 b = { function() require('gitsigns').toggle_current_line_blame() end, "Current line blame" },
                 d = { function() require('gitsigns').toggle_deleted() end, "deleted" },
@@ -119,6 +119,23 @@ return function()
                 d = { function() require('persistence').stop() end, 'Do not save session on exit' },
                 t = { function() require('telescope.builtin').colorscheme({ enable_preview = true }) end, 'Change theme' }
             },
+
+            s = {-- window management
+                name = 'splits',
+                [ "v" ] = { "<C-w>vbs", "Split window vertically" },
+                [ "h" ] = { "<C-w>s", "Split window horizontally" },
+                [ "e" ] = { "<C-w>=", "Make splits equal size" },
+                [ "x" ] = { "<cmd>close<CR>", "Close current split" },
+            },
+
+            t = {
+                name = 'tabs',
+                [ "o" ] = { "<cmd>tabnew<CR>", "Open new tab" },
+                [ "x" ] = { "<cmd>tabclose<CR>", "Close current tab" },
+                [ "n" ] = { "<cmd>tabn<CR>", "Go to next tab" },
+                [ "p" ] = { "<cmd>tabp<CR>", "Go to previous tab" },
+                [ "f" ] = { "<cmd>tabnew %<CR>", "Open current buffer in new tab" },
+            }
 
         },
 
