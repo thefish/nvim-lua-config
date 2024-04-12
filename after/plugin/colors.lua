@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-    color = color or "github_light_high_contrast"
+    color = color or "rose-pine-moon"
     vim.cmd.colorscheme(color)
 
     -- transparent bg
