@@ -1,5 +1,5 @@
-function ColorMyPencils(color)
-    color = color or "github_light_high_contrast"
+function SetColor(color)
+    color = color or "rose-pine-moon"
     vim.cmd.colorscheme(color)
 
     -- transparent bg
@@ -7,4 +7,4 @@ function ColorMyPencils(color)
     -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
-ColorMyPencils()
+SetColor()
