@@ -110,7 +110,16 @@ return function()
                     require('dap').terminate()
                     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false)
                     require("notify")("Debugger session ended", "warn")
-                end, "Stop debugging" }
+                end, "Stop debugging" },
+                r = {
+                    name = 'run test',
+                    r = {"<cmd>TestNearest<cr>", "Run nearest test"},
+                    s = {"<cmd>TestSuite<cr>", "Run test suite"},
+                    f = {"<cmd>TestFile<cr>", "Run all tests for the current file"},
+                    l = {"<cmd>TestLast<cr>", "Rerun last test"},
+                    o = {"<cmd>TestVisit<cr>", "Open last test in current buffer"},
+                    x = {"<cmd>TestEdit<cr>", "Fix tests for current file"},
+                },
             },
             q = {
                 name = 'sessions',
