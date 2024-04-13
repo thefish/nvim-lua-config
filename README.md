@@ -13,11 +13,11 @@ then run nvim and wait everything to download and install.
 
 full list of plugins
 ---
-see (plugin folder)[lua/thefish/plugins]
+see [plugin folder](lua/thefish/plugins)
 
 Key mapping
 ---
-Extensively described in (mappings file)[lua/thefish/core/mappings.lua]
+Extensively described in [mappings file](lua/thefish/core/mappings.lua)
 
 Also some hacks were added to nvim-tree:
 
