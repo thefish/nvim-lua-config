@@ -8,6 +8,11 @@ return function()
             p = {
                 name = "project",
                 f = { "<cmd>Telescope find_files<cr>", "Find files" },
+                F = { function ()
+                   vim.ui.input({prompt="Search for:"}, function (msg)
+                        require('telescope.builtin').grep_string({search=msg})
+                   end)
+                end, "String search in files" },
                 r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
                 s = { function()
                     require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") })
@@ -46,13 +51,15 @@ return function()
                 u = { function() require('gitsigns').undo_stage_hunk() end, "Undo stage hunk" },
                 U = { function() require('gitsigns').undo_stage_buffer() end, "Undo stage " },
                 R = { function() require('gitsigns').reset_buffer() end, "Reset buffer" },
-                p = { function() require('gitsigns').preview_hunk() end, "Preview hunk" },
+                P = { function() require('gitsigns').preview_hunk() end, "Preview hunk" },
                 b = { function() require('gitsigns').blame_line({ full = true }) end, "Blame line" },
                 d = { function() require('gitsigns').diffthis() end, "Diff this" },
                 D = { function() require('gitsigns').diffthis('~') end, "Diff this" },
                 v = { "<Esc>:DiffviewOpen origin/master... --imply-local<cr>", "DiffView this"},
                 c = { function() require("thefish.git-commit-input")() end, "git commit"},
+                p = { function() require('thefish.git-push-variants')() end, "git push variants"}
             },
+
 
             o = {
                 name = "Toggles",
