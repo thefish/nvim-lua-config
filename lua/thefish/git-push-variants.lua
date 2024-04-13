@@ -1,3 +1,5 @@
+local GPVars = {}
+
 local options = {
     ['push'] = {
         ['command'] = 'git push'
@@ -16,25 +18,28 @@ local options = {
 }
 
 -- cuz its easier to preserve order this way
-local keyset = {
-    'push',
-    'commit and push',
-    'upstream set and push',
-    'squash commits and force push',
-}
--- local n=0
+-- local keyset = {
+--     'push',
+--     'commit and push',
+--     'upstream set and push',
+--     'squash commits and force push',
+-- }
 
--- for k,v in pairs(options) do
---   n=n+1
---   keyset[n]=k
--- end
+local keyset = {}
+local n=0
+
+for k,v in pairs(options) do
+  n=n+1
+  keyset[n]=k
+end
+table.sort(keyset, function(a,b) return #a<#b end)
 
 local execute = function (str)
    vim.fn.system(str)
    -- print(str)
 end
 
-return function ()
+function GPVars.git_push_variants_menu()
     vim.ui.select(
         keyset,
         {
@@ -60,3 +65,5 @@ return function ()
         end
     )
 end
+
+return GPVars

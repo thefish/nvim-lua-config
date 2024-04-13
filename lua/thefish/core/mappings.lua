@@ -57,7 +57,7 @@ return function()
                 D = { function() require('gitsigns').diffthis('~') end, "Diff this" },
                 v = { "<Esc>:DiffviewOpen origin/master... --imply-local<cr>", "DiffView this"},
                 c = { function() require("thefish.git-commit-input")() end, "git commit"},
-                p = { function() require('thefish.git-push-variants')() end, "git push variants"}
+                p = { function() require('thefish.git-push-variants').git_push_variants_menu() end, "git push variants"}
             },
 
 
