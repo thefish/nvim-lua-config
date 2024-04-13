@@ -13,16 +13,20 @@ then run nvim and wait everything to download and install.
 
 full list of plugins
 ---
-look into lua/thefish/init.lua to see a full list of plugins
+see (plugin folder)[lua/thefish/plugins]
 
-Custom scripting
+Key mapping
 ---
+Extensively described in (mappings file)[lua/thefish/core/mappings.lua]
 
-#### Project group
+Also some hacks were added to nvim-tree:
 
-```<leader>p f``` Finds file in project
+```Ctrl+f``` Find file in folder
 
-```<leader>p g c``` Opens diff with git master/main tree in telescope viewer. Useful when you are doing merge requests.
+```Ctrl+a``` Stage file/folder for git commit
+
+```Ctrl+x``` Unstage file/folder from git commit
+
 
 ##### small telescope hacks
 
@@ -31,5 +35,5 @@ Custom scripting
 
 Custom themes
 ---
-ir_black2 is the theme i like the most, and it is included but not modified for usage with NeoVim yet.
+ir_black2 is the theme I always liked the most, and it is included but not modified for usage with NeoVim yet.
 
