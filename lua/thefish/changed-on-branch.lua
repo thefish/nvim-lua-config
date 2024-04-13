@@ -12,7 +12,7 @@ local changed_on_branch = function(rtdir)
     local sorters = require('telescope.sorters')
     local finders = require('telescope.finders')
 
-    print(rtdir)
+    -- print(rtdir)
     pickers.new {
         results_title = 'Modified on current branch',
         finder = finders.new_oneshot_job({

@@ -2,60 +2,56 @@
 
 return function()
     return
---normal-mode-stuff
-{
-    ["<leader>"] = {
-        p = {
-            name = "project",
-            f = { "<cmd>Telescope find_files<cr>", "Find files" },
-            r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
-            s = { function()
-                require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") })
-            end, "Project search for word" },
-            g = {
-                name = "git",
-                g = { "<cmd>Telescope git_files<cr>", "Git files find" },
-                c = { function()
-                    require('thefish.changed-on-branch')(Rtdir)
-                end, "Files changed on branch" },
-                D = { "<cmd>DiffviewOpen origin/master..HEAD<cr>","Show diffview to origin/master"},
-                m = { "<cmd>Telescope git_commits<cr>", "Commits" },
-                s = { "<cmd>Telescope git_status<cr>", "Status" },
-                t = { "<cmd>Telescope git_stash<cr>", "Stash" },
-                b = { "<cmd>Telescope git_bcommits<cr>", "Commits for curren buffer" },
-                l = { "<cmd>Telescope git_bcommits_range<cr>", "Commits for curren buffer" },
+    --normal-mode-stuff
+    {
+        ["<leader>"] = {
+            p = {
+                name = "project",
+                f = { "<cmd>Telescope find_files<cr>", "Find files" },
+                r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
+                s = { function()
+                    require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") })
+                end, "Project search for word" },
+                g = {
+                    name = "git",
+                    g = { "<cmd>Telescope git_files<cr>", "Git files find" },
+                    c = { function()
+                        require('thefish.changed-on-branch')(Rtdir)
+                    end, "Files changed on branch" },
+                    D = { "<cmd>DiffviewOpen origin/master..HEAD<cr>","Show diffview to origin/master"},
+                    m = { "<cmd>Telescope git_commits<cr>", "Commits" },
+                    s = { "<cmd>Telescope git_status<cr>", "Status" },
+                    t = { "<cmd>Telescope git_stash<cr>", "Stash" },
+                    b = { "<cmd>Telescope git_bcommits<cr>", "Commits for curren buffer" },
+                    l = { "<cmd>Telescope git_bcommits_range<cr>", "Commits for curren buffer" },
+                },
+                t = { "<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff" },
+
             },
-            t = { "<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff" },
+            w = {
+                name = "word",
+                c = { "viwu~W", "Capitalize" },
+                l = { "viwuW", "lowercase" },
+                u = { "viwUW", "UPPERCASE" },
+                s = { function()
+                    require('telescope.builtin').grep_string()
+                end, "Search in project" },
+            },
 
-        },
-        w = {
-            name = "word",
-            c = { "viwu~W", "Capitalize" },
-            l = { "viwuW", "lowercase" },
-            u = { "viwUW", "UPPERCASE" },
-            s = { function()
-                require('telescope.builtin').grep_string()
-            end, "Search in project" },
-        },
-
-        h = {
-            name = "git ops",
-            s = { function() require('gitsigns').stage_hunk() end, "Stage hunk" },
-            r = { function() require('gitsigns').reset_hunk() end, "Reset hunk" },
-            S = { function() require('gitsigns').stage_buffer() end, "Stage buffer" },
-            u = { function() require('gitsigns').undo_stage_hunk() end, "Undo stage hunk" },
-            U = { function() require('gitsigns').undo_stage_buffer() end, "Undo stage " },
-            R = { function() require('gitsigns').reset_buffer() end, "Reset buffer" },
-            p = { function() require('gitsigns').preview_hunk() end, "Preview hunk" },
-            b = { function() require('gitsigns').blame_line({ full = true }) end, "Blame line" },
-            d = { function() require('gitsigns').diffthis() end, "Diff this" },
-            D = { function() require('gitsigns').diffthis('~') end, "Diff this" },
-            v = {
-                -- function()
-                    -- local branch = os.getenv("PROJECT_MAIN_BRANCH") or "master"
-                    -- return "<Esc>:DiffviewOpen origin/" .. branch .. "... --imply-local<cr>" end, "DiffView this"
-                    "<Esc>:DiffviewOpen origin/master... --imply-local<cr>", "DiffView this"
-                }
+            h = {
+                name = "git ops",
+                s = { function() require('gitsigns').stage_hunk() end, "Stage hunk" },
+                r = { function() require('gitsigns').reset_hunk() end, "Reset hunk" },
+                S = { function() require('gitsigns').stage_buffer() end, "Stage buffer" },
+                u = { function() require('gitsigns').undo_stage_hunk() end, "Undo stage hunk" },
+                U = { function() require('gitsigns').undo_stage_buffer() end, "Undo stage " },
+                R = { function() require('gitsigns').reset_buffer() end, "Reset buffer" },
+                p = { function() require('gitsigns').preview_hunk() end, "Preview hunk" },
+                b = { function() require('gitsigns').blame_line({ full = true }) end, "Blame line" },
+                d = { function() require('gitsigns').diffthis() end, "Diff this" },
+                D = { function() require('gitsigns').diffthis('~') end, "Diff this" },
+                v = { "<Esc>:DiffviewOpen origin/master... --imply-local<cr>", "DiffView this"},
+                c = { function() require("thefish.git-commit-input")() end, "git commit"},
             },
 
             o = {
@@ -130,94 +126,95 @@ return function()
             },
 
             s = {-- window management
-                name = 'splits',
-                [ "v" ] = { "<C-w>vbs", "Split window vertically" },
-                [ "h" ] = { "<C-w>s", "Split window horizontally" },
-                [ "e" ] = { "<C-w>=", "Make splits equal size" },
-                [ "x" ] = { "<cmd>close<CR>", "Close current split" },
-            },
-
-            t = {
-                name = 'tabs',
-                [ "o" ] = { "<cmd>tabnew<CR>", "Open new tab" },
-                [ "x" ] = { "<cmd>tabclose<CR>", "Close current tab" },
-                [ "n" ] = { "<cmd>tabn<CR>", "Go to next tab" },
-                [ "p" ] = { "<cmd>tabp<CR>", "Go to previous tab" },
-                [ "f" ] = { "<cmd>tabnew %<CR>", "Open current buffer in new tab" },
-            }
-
+            name = 'splits',
+            [ "v" ] = { "<C-w>vbs", "Split window vertically" },
+            [ "h" ] = { "<C-w>s", "Split window horizontally" },
+            [ "e" ] = { "<C-w>=", "Make splits equal size" },
+            [ "x" ] = { "<cmd>close<CR>", "Close current split" },
         },
 
-        ["gr"] = { function() require('telescope.builtin').lsp_references() end, "Find references" },
-        ["gD"] = { function() require('lsp').buf.declaration() end, "Go to declaration" },
-        ["gd"] = { function() require('telescope.builtin').lsp_definitions() end, "Go to definition" },
-        ["gi"] = { function() require('telescope.builtin').lsp_implementations() end, "Go to implementation" },
-        ["go"] = { function() require('telescope.builtin').lsp_type_definitions() end, "Go to type definitions" },
-        ["[d"] = { function() vim.diagnostic.goto_next() end, "Diag next" },
-        ["]d"] = { function() vim.diagnostic.goto_prev() end, "Diag prev" },
-        ["<C-b>"] = { function() require('dap').toggle_breakpoint() end, "Breakpoint toggle" },
+        t = {
+            name = 'tabs',
+            [ "o" ] = { "<cmd>tabnew<CR>", "Open new tab" },
+            [ "x" ] = { "<cmd>tabclose<CR>", "Close current tab" },
+            [ "n" ] = { "<cmd>tabn<CR>", "Go to next tab" },
+            [ "p" ] = { "<cmd>tabp<CR>", "Go to previous tab" },
+            [ "f" ] = { "<cmd>tabnew %<CR>", "Open current buffer in new tab" },
+        },
+        ["ee"] = {"oif err != nil {<cr>return err<cr>}<cr><esc>kvap=$", "golang if err != nil"}
 
-        [']c'] = { function()
-            if vim.wo.diff then return ']c' end
-            vim.schedule(function() require('gitsigns').next_hunk() end)
-            return '<Ignore>'
-        end, 'Next hunk' },
-        ['[c'] = { function()
-            if vim.wo.diff then return '[c' end
-            vim.schedule(function() require('gitsigns').prev_hunk() end)
-            return '<Ignore>'
-        end, "Prev hunk" },
+    },
 
-        {
-            -- Common stuff
-            ["<C-z>"] = { "u<cr>", "Undo on ctrl+z" },
-            ["<F2>"] = { "<cmd>w<cr>", "Save file" },
-            ["<C-p>"] = { ":set paste<CR>i<CR><CR><Esc>k:.!xclip -o<CR>JxkJx:set nopaste<CR>", "copy to system clipoard" },
-            ["<Esc><Esc>"] = { "<Esc>:nohl<CR>", "double escape to disable highlight" },
-            -- set moving between windows to ctrl+arrows
-            ["<C-Right>"] = { "<c-w>l", "" },
-            ["<C-Left>"] = { "<c-w>h", "" },
-            ["<C-Up>"] = { "<c-w>k", "" },
-            ["<C-Down>"] = { "<c-w>j", "" },
-            -- set moving between windows to ctrl+hjkl
-            ["<C-l>"] = { "<c-w>l", "Switch window right" },
-            ["<C-h>"] = { "<c-w>h", "Switch window left" },
-            ["<C-k>"] = { "<c-w>k", "Switch window up" },
-            ["<C-j>"] = { "<c-w>j", "Switch window down" },
+    ["gr"] = { function() require('telescope.builtin').lsp_references() end, "Find references" },
+    ["gD"] = { function() require('lsp').buf.declaration() end, "Go to declaration" },
+    ["gd"] = { function() require('telescope.builtin').lsp_definitions() end, "Go to definition" },
+    ["gi"] = { function() require('telescope.builtin').lsp_implementations() end, "Go to implementation" },
+    ["go"] = { function() require('telescope.builtin').lsp_type_definitions() end, "Go to type definitions" },
+    ["[d"] = { function() vim.diagnostic.goto_next() end, "Diag next" },
+    ["]d"] = { function() vim.diagnostic.goto_prev() end, "Diag prev" },
+    ["<C-b>"] = { function() require('dap').toggle_breakpoint() end, "Breakpoint toggle" },
 
-            --center on Ctrl+d and Ctrl+u
-            ["<C-d>"] = { "<c-d>zz", "Move half page down and center" },
-            ["<C-u>"] = { "<c-u>zz", "Move half page down and center" },
+    [']c'] = { function()
+        if vim.wo.diff then return ']c' end
+        vim.schedule(function() require('gitsigns').next_hunk() end)
+        return '<Ignore>'
+    end, 'Next hunk' },
+    ['[c'] = { function()
+        if vim.wo.diff then return '[c' end
+        vim.schedule(function() require('gitsigns').prev_hunk() end)
+        return '<Ignore>'
+    end, "Prev hunk" },
+
+    {
+        -- Common stuff
+        ["<C-z>"] = { "u<cr>", "Undo on ctrl+z" },
+        ["<F2>"] = { "<cmd>w<cr>", "Save file" },
+        ["<C-p>"] = { ":set paste<CR>i<CR><CR><Esc>k:.!xclip -o<CR>JxkJx:set nopaste<CR>", "copy to system clipoard" },
+        ["<Esc><Esc>"] = { "<Esc>:nohl<CR>", "double escape to disable highlight" },
+        -- set moving between windows to ctrl+arrows
+        ["<C-Right>"] = { "<c-w>l", "" },
+        ["<C-Left>"] = { "<c-w>h", "" },
+        ["<C-Up>"] = { "<c-w>k", "" },
+        ["<C-Down>"] = { "<c-w>j", "" },
+        -- set moving between windows to ctrl+hjkl
+        ["<C-l>"] = { "<c-w>l", "Switch window right" },
+        ["<C-h>"] = { "<c-w>h", "Switch window left" },
+        ["<C-k>"] = { "<c-w>k", "Switch window up" },
+        ["<C-j>"] = { "<c-w>j", "Switch window down" },
+
+        --center on Ctrl+d and Ctrl+u
+        ["<C-d>"] = { "<c-d>zz", "Move half page down and center" },
+        ["<C-u>"] = { "<c-u>zz", "Move half page down and center" },
 
 
+    },
+},
+-- visual mode stuff
+{
+    ["jh"] = { "<esc>", "exit visual mode on fast jh" }, -- cause jj is used for selection often
+    -- yyp instead of that akshually
+    -- ["<c-d>"] = { "<esc>yypi", "duplicate line" },
+    ["<C-z>"] = { "<Esc>u<cr>v", "Undo on ctrl+z" },
+    ["<F2>"] = { "<esc><cmd>w<cr>v", "Save file" },
+    ["<C-y>"] = { ":<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u", "paste from system clipboard" },
+    ["<C-l>"] = { "<cmd>Telescope git_bcommits<cr>", "Commits for selected lines" },
+
+    ["<leader>"] = {
+        h = {
+            name = "git ops",
+            s = { function() require('gitsigns').stage_hunk() { vim.fn.line('.'), vim.fn.line('v') } end,
+            "stage selected" },
+            r = { function() require('gitsigns').reset_hunk() { vim.fn.line('.'), vim.fn.line('v') } end,
+            "reset selected" },
         },
     },
-    -- visual mode stuff
-    {
-        ["jh"] = { "<esc>", "exit visual mode on fast jh" },
-        -- yyp instead of that akshually
-        -- ["<c-d>"] = { "<esc>yypi", "duplicate line" },
-        ["<C-z>"] = { "<Esc>u<cr>v", "Undo on ctrl+z" },
-        ["<F2>"] = { "<esc><cmd>w<cr>v", "Save file" },
-        ["<C-y>"] = { ":<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u", "paste from system clipboard" },
-        ["<C-l>"] = { "<cmd>Telescope git_bcommits<cr>", "Commits for selected lines" },
-
-        ["<leader>"] = {
-            h = {
-                name = "git ops",
-                s = { function() require('gitsigns').stage_hunk() { vim.fn.line('.'), vim.fn.line('v') } end,
-                "stage selected" },
-                r = { function() require('gitsigns').reset_hunk() { vim.fn.line('.'), vim.fn.line('v') } end,
-                "reset selected" },
-            },
-        },
-    },
-    -- insert mode stuff
-    {
-        ["<C-z>"] = { "<Esc>u<cr>i", "Undo on ctrl+z" },
-        ["jj"] = { "<esc>", "exit insert mode on fast jj" },
-        ["<c-d>"] = { "<esc>yypi", "duplicate line" },
-        ["<c-y>"] = { "<esc>ddki", "delete line" },
-        ["<F2>"] = { "<esc><cmd>w<cr>i", "Save file" },
-    }
+},
+-- insert mode stuff
+{
+    ["<C-z>"] = { "<Esc>u<cr>i", "Undo on ctrl+z" },
+    ["jh"] = { "<esc>", "exit insert mode on fast jh" },
+    ["<c-d>"] = { "<esc>yypi", "duplicate line" },
+    ["<c-y>"] = { "<esc>ddki", "delete line" },
+    ["<F2>"] = { "<esc><cmd>w<cr>i", "Save file" },
+}
 end;
