@@ -46,8 +46,10 @@ return function ()
                 vim.ui.input(
                     {prompt=options[selected]['prompt']},
                     function (msg)
-                        local cmd = string.format(options[selected]['command'], msg)
-                        execute(cmd)
+                        if msg ~= nil then
+                            local cmd = string.format(options[selected]['command'], msg)
+                            execute(cmd)
+                        end
                     end
                 )
             else
