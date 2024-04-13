@@ -42,18 +42,20 @@ return function ()
             telescope = require("telescope.themes").get_cursor(),
         },
         function (selected)
-            if options[selected].prompt ~= nil then
-                vim.ui.input(
-                    {prompt=options[selected]['prompt']},
-                    function (msg)
-                        if msg ~= nil then
-                            local cmd = string.format(options[selected]['command'], msg)
-                            execute(cmd)
+            if (options ~= nil and options[selected]['command'] ~= nil) then
+                if options[selected]['prompt'] ~= nil then
+                    vim.ui.input(
+                        {prompt=options[selected]['prompt']},
+                        function (msg)
+                            if msg ~= nil then
+                                local cmd = string.format(options[selected]['command'], msg)
+                                execute(cmd)
+                            end
                         end
-                    end
-                )
-            else
-                execute(options[selected]['command'])
+                    )
+                else
+                    execute(options[selected]['command'])
+                end
             end
         end
     )
