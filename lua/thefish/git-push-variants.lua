@@ -42,7 +42,7 @@ return function ()
             telescope = require("telescope.themes").get_cursor(),
         },
         function (selected)
-            if (options ~= nil and options[selected]['command'] ~= nil) then
+            if (options ~= nil and options[selected] ~= nil and options[selected]['command'] ~= nil) then
                 if options[selected]['prompt'] ~= nil then
                     vim.ui.input(
                         {prompt=options[selected]['prompt']},
