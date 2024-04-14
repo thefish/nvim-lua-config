@@ -36,6 +36,7 @@ return function()
                     t = { "<cmd>Telescope git_stash<cr>", "Stash" },
                     b = { function () require('telescope.builtin').git_bcommits() end, "current bufffer commits" },
                     -- l = { function () require('telescope.builtin').git_bcommits_range() end, "range of lines commits" },
+                    r = { function () require('telescope.builtin').git_branches() end, "branches" },
                 },
                 z = { "<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff" },
 
