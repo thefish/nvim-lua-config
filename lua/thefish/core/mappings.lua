@@ -20,6 +20,9 @@ return function()
                     o = { function () require('telescope.builtin').lsp_outgoing_calls() end, "Outgoing calls" },
                     i = { function () require('telescope.builtin').lsp_incoming_calls() end, "Incoming calls" },
                 },
+                i = { function () require('telescope.builtin').lsp_implementations() end, "implementations" },
+                d = { function () require('telescope.builtin').lsp_definitions() end, "definitions" },
+                t = { function () require('telescope.builtin').lsp_type_definitions() end, "type definitions" },
                 x = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
                 g = {
                     name = "git",
@@ -34,7 +37,7 @@ return function()
                     b = { function () require('telescope.builtin').git_bcommits() end, "current bufffer commits" },
                     -- l = { function () require('telescope.builtin').git_bcommits_range() end, "range of lines commits" },
                 },
-                t = { "<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff" },
+                z = { "<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff" },
 
             },
             w = {
