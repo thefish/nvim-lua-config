@@ -12,8 +12,8 @@ return function()
                     vim.ui.input({prompt="Search for:"}, function (msg)
                         require('telescope.builtin').grep_string({search=msg})
                     end)
-                end, "File name search in workspace" },
-                S = { function () require('telescope.builtin').lsp_workspace_symbols() end, "Symbol search in workspace" },
+                end, "String search" },
+                y = { function () require('telescope.builtin').lsp_workspace_symbols() end, "Symbol search in workspace" },
                 r = { function () require('telescope.builtin').lsp_references() end, "Reference search in workspace" },
                 c = {
                     name = 'Calls for word under cursor',
