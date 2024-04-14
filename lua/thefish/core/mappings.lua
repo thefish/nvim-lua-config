@@ -7,16 +7,20 @@ return function()
         ["<leader>"] = {
             p = {
                 name = "project",
-                f = { "<cmd>Telescope find_files<cr>", "Find files" },
-                F = { function ()
-                   vim.ui.input({prompt="Search for:"}, function (msg)
+                N = { "<cmd>Telescope find_files<cr>", "Find files by name" },
+                s = { function ()
+                    vim.ui.input({prompt="Search for:"}, function (msg)
                         require('telescope.builtin').grep_string({search=msg})
-                   end)
-                end, "String search in files" },
-                r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
-                s = { function()
-                    require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") })
-                end, "Project search for word" },
+                    end)
+                end, "File name search in workspace" },
+                S = { function () require('telescope.builtin').lsp_workspace_symbols() end, "Symbol search in workspace" },
+                r = { function () require('telescope.builtin').lsp_references() end, "Reference search in workspace" },
+                c = {
+                    name = 'Calls for word under cursor',
+                    o = { function () require('telescope.builtin').lsp_outgoing_calls() end, "Outgoing calls" },
+                    i = { function () require('telescope.builtin').lsp_incoming_calls() end, "Incoming calls" },
+                },
+                x = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
                 g = {
                     name = "git",
                     g = { "<cmd>Telescope git_files<cr>", "Git files find" },
@@ -24,11 +28,11 @@ return function()
                         require('thefish.changed-on-branch')(Rtdir)
                     end, "Files changed on branch" },
                     D = { "<cmd>DiffviewOpen origin/master..HEAD<cr>","Show diffview to origin/master"},
-                    m = { "<cmd>Telescope git_commits<cr>", "Commits" },
-                    s = { "<cmd>Telescope git_status<cr>", "Status" },
+                    m = { function () require('telescope.builtin').git_commits() end, "git commits" },
+                    s = { function () require('telescope.builtin').git_status() end, "git status" },
                     t = { "<cmd>Telescope git_stash<cr>", "Stash" },
-                    b = { "<cmd>Telescope git_bcommits<cr>", "Commits for curren buffer" },
-                    l = { "<cmd>Telescope git_bcommits_range<cr>", "Commits for curren buffer" },
+                    b = { function () require('telescope.builtin').git_bcommits() end, "current bufffer commits" },
+                    -- l = { function () require('telescope.builtin').git_bcommits_range() end, "range of lines commits" },
                 },
                 t = { "<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff" },
 
@@ -183,17 +187,13 @@ return function()
         ["<C-Left>"] = { "<c-w>h", "" },
         ["<C-Up>"] = { "<c-w>k", "" },
         ["<C-Down>"] = { "<c-w>j", "" },
-        -- set moving between windows to ctrl+hjkl
-        ["<C-l>"] = { "<c-w>l", "Switch window right" },
-        ["<C-h>"] = { "<c-w>h", "Switch window left" },
-        ["<C-k>"] = { "<c-w>k", "Switch window up" },
-        ["<C-j>"] = { "<c-w>j", "Switch window down" },
 
         --center on Ctrl+d and Ctrl+u
         ["<C-d>"] = { "<c-d>zz", "Move half page down and center" },
         ["<C-u>"] = { "<c-u>zz", "Move half page down and center" },
 
-
+        ["<C-j>"] = { "<cmd>cnext<cr>", "Move to next entry in quickfix list" },
+        ["<C-k>"] = { "<cmd>cprev<cr>", "Move to previous entry in quickfix list" },
     },
 },
 -- visual mode stuff
