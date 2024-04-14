@@ -8,12 +8,22 @@ return function()
             p = {
                 name = "project",
                 N = { "<cmd>Telescope find_files<cr>", "Find files by name" },
+                f = { "<cmd>Telescope find_files<cr>", "Find files by name" },
                 s = { function ()
                     vim.ui.input({prompt="Search for:"}, function (msg)
                         require('telescope.builtin').grep_string({search=msg})
                     end)
                 end, "String search" },
-                y = { function () require('telescope.builtin').lsp_workspace_symbols() end, "Symbol search in workspace" },
+                y = { function ()
+                        vim.ui.input(
+                            {prompt="search for symbol"},
+                            function(msg)
+                                require('telescope.builtin').lsp_workspace_symbols({query=msg})
+                            end
+                        )
+                    end,
+                    "Symbol search in workspace",
+                },
                 u = { function () require('telescope.builtin').treesitter() end, "Symbol search in current file" },
                 r = { function () require('telescope.builtin').lsp_references() end, "Reference search in workspace" },
                 c = {
