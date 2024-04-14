@@ -14,6 +14,7 @@ return function()
                     end)
                 end, "String search" },
                 y = { function () require('telescope.builtin').lsp_workspace_symbols() end, "Symbol search in workspace" },
+                u = { function () require('telescope.builtin').treesitter() end, "Symbol search in current file" },
                 r = { function () require('telescope.builtin').lsp_references() end, "Reference search in workspace" },
                 c = {
                     name = 'Calls for word under cursor',
