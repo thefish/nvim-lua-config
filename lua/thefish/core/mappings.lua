@@ -64,9 +64,9 @@ return function()
 
             h = {
                 name = "git ops",
-                s = { function() require('gitsigns').stage_hunk() end, "Stage hunk" },
+                S = { function() require('gitsigns').stage_hunk() end, "Stage hunk" },
                 r = { function() require('gitsigns').reset_hunk() end, "Reset hunk" },
-                S = { function() require('gitsigns').stage_buffer() end, "Stage buffer" },
+                s = { function() require('gitsigns').stage_buffer() end, "Stage buffer" },
                 u = { function() require('gitsigns').undo_stage_hunk() end, "Undo stage hunk" },
                 U = { function() require('gitsigns').undo_stage_buffer() end, "Undo stage " },
                 R = { function() require('gitsigns').reset_buffer() end, "Reset buffer" },
