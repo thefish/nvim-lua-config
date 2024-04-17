@@ -13,70 +13,56 @@ lsp.preset({
     },
 })
 
-lsp.ensure_installed({
-    'bashls',
-    'cssls',
-    'pyright',
-    'dockerls',
-    'yamlls',
-    'vimls',
-    'gopls',
-    'tsserver',
-    'rust_analyzer',
-})
-
-
-lsp.nvim_workspace()
-
 
 local cmp = require('cmp')
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    -- ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    -- ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    -- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    -- ["<C-Space>"] = cmp.mapping.complete(),
+local cmp_action = require('lsp-zero').cmp_action()
+local luasnip = require('luasnip')
 
+cmp.setup({
+        --     completion = {
+        --         autocomplete = false,
+        --     },
+        window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
+        },
+        mapping = cmp.mapping.preset.insert({
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<CR>'] = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true
+            }),
+            -- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+            -- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+            ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-d>'] = cmp.mapping.scroll_docs(4),
+            ['<Tab>'] = cmp.mapping(function (fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                elseif luasnip.expandable() then
+                    luasnip.expand()
+                else
+                    fallback()
+                end
+            end, {'i', 's'}),
+            ['<S-Tab>'] = cmp_action.select_prev_or_fallback(),
 
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
-    -- C-b (back) C-f (forward) for snippet placeholder navigation.
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-            cmp.select_next_item()
-        else
-            fallback()
-        end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-            cmp.select_prev_item()
-        else
-            fallback()
-        end
-    end, { 'i', 's' }),
-})
+        }),
+        snippet = {
+            expand = function(args)
+                require('luasnip').lsp_expand(args.body)
+            end,
+        },
+    })
 
--- cmp_mappings['<Tab>'] = nil
--- cmp_mappings['<S-Tab>'] = nil
+    lsp.set_preferences({
+        suggest_lsp_servers = false,
+        sign_icons = {
+            error = 'E',
+            warn = 'W',
+            hint = 'H',
+            info = 'I'
+        }
+    })
 
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
-})
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
-
-lsp.setup()
+    lsp.setup()
