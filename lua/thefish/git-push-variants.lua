@@ -12,18 +12,10 @@ local options = {
          ['prompt'] = "git commit message",
      },
     ['squash commits and force push'] = {
-         ['command'] = 'git reset $(git merge-base master $(git branch --show-current)) && git add -A && git commit -m "%s" && git push -f',
-         ['prompt'] = "squashed commit message",
+         ['command'] = 'git reset $(git merge-base master $(git branch --show-current)) && git add $(ls -d ./*/) && git commit -m "%s" && git push -f',
+         ['prompt'] = "squash, commit and force push",
     },
 }
-
--- cuz its easier to preserve order this way
--- local keyset = {
---     'push',
---     'commit and push',
---     'upstream set and push',
---     'squash commits and force push',
--- }
 
 local keyset = {}
 local n=0
