@@ -41,7 +41,7 @@ local function nvimtree_on_attach(bufnr)
     vim.keymap.set('n', 't', function()
         local node = require('nvim-tree.api').tree.get_node_under_cursor()
         if not node then return end
-        vim.cmd(':tabedit ' .. node.absolute_path .. '<cr>')
+        vim.cmd(':tabedit ' .. node.absolute_path)
     end, opts('New tab edit'))
 
 end
