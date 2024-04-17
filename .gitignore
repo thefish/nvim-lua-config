@@ -4,3 +4,4 @@ undo/*
 backup/*
 swap/*
 sessions/*
+lazy-lock.json
