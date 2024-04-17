@@ -1,7 +1,8 @@
-plugin/*
+in/*
 data/*
 undo/*
 backup/*
 swap/*
 sessions/*
 lazy-lock.json
+lua/thefish/plugins/irae.lua
