@@ -20,3 +20,4 @@ wk.register(visual,{ mode = "v", noremap = true })
 wk.register(insert,{ mode = "i", noremap = true })
 wk.register(normal, wkOpts)
 
+vim.opt.mouse = ""
