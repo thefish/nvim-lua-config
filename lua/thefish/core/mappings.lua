@@ -10,9 +10,7 @@ return function()
                 N = { "<cmd>Telescope find_files<cr>", "Find files by name" },
                 f = { "<cmd>Telescope find_files<cr>", "Find files by name" },
                 s = { function ()
-                    vim.ui.input({prompt="Search for:"}, function (msg)
-                        require('telescope.builtin').grep_string({search=msg})
-                    end)
+                        require('telescope.builtin').live_grep()
                 end, "String search" },
                 y = { function ()
                         vim.ui.input(
