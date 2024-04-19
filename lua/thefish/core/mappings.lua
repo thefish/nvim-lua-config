@@ -9,6 +9,7 @@ return function()
                     name = "project",
                     N = { "<cmd>Telescope find_files<cr>", "Find files by name" },
                     f = { "<cmd>Telescope find_files<cr>", "Find files by name" },
+                    b = { "<cmd>Telescope buffers<cr>", "buffers" },
                     s = { function()
                         require('telescope.builtin').live_grep()
                     end, "String search" },
