@@ -1,6 +1,6 @@
 local git_detect_main_branch = function()
     local mainGitBranch = vim.fn.system('git branch | grep -o -m1 "\b(master|main)\b"')
-    vim.fn.setenv("PROJECT_MAIN_BRANCH",mainGitBranch)
+    vim.fn.setenv("PROJECT_MAIN_BRANCH", mainGitBranch)
 end
 
 git_detect_main_branch()
