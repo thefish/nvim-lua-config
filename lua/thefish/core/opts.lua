@@ -1,4 +1,4 @@
-local set = vim.opt  --set options
+local set = vim.opt --set options
 
 set.undodir = Rtdir .. "/undo"
 set.backupdir = Rtdir .. "/backup"
@@ -26,17 +26,17 @@ vim.wo.wrap = false
 
 -- small nuances
 
--- delete trailing white spaces except for markdown
-function DeleteTrailingWS()
-    if (vim.bo.filetype == 'markdown') then
-        return
-    end
-    vim.api.nvim_command([[normal mz]])
-    vim.cmd([[%s/\s\+$//ge]])
-    vim.api.nvim_command([[normal 'z]])
-end
+--     -- delete trailing white spaces except for markdown
+--     function DeleteTrailingWS()
+--         if (vim.bo.filetype == 'markdown') then
+--             return
+--         end
+--         vim.api.nvim_command([[normal mz]])
+--         vim.cmd([[%s/\s\+$//ge]])
+--         vim.api.nvim_command([[normal 'z]])
+--     end
 
-vim.api.nvim_create_autocmd('BufWritePre', { callback = DeleteTrailingWS })
+-- vim.api.nvim_create_autocmd('BufWritePre', { callback = DeleteTrailingWS })
 
 -- Return to last edit position when opening files
 vim.api.nvim_create_autocmd('BufReadPost', { pattern = "*", command = "silent! normal! g;" })

@@ -31,9 +31,9 @@ Also some hacks were added to nvim-tree:
 ##### small telescope hacks
 
 ```<c-q>``` in an telesope find window to open the contents as a nvim's quickfix list. cnext and cprev to navigate. 
-
+```<c-?>``` shows inline help for telesope, buggy but helpful.
 
 Custom themes
 ---
-ir_black2 is the theme I always liked the most, and it is included but not modified for usage with NeoVim yet.
 
+[Irae.nvim](https://github,com/thefish/irae) - theme loosely based on famous ir_black, still in development
