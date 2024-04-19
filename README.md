@@ -36,4 +36,4 @@ Also some hacks were added to nvim-tree:
 Custom themes
 ---
 
-[Irae.nvim](https://github,com/thefish/irae) - theme loosely based on famous ir_black, still in development
+[Irae.nvim](https://github.com/thefish/irae.nvim) - theme loosely based on famous ir_black, still in development
