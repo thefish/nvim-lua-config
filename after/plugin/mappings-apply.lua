@@ -9,15 +9,15 @@ local wkOpts = {
     buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
-    nowait = false, -- use `nowait` when creating keymaps
+    nowait = true,  -- use `nowait` when creating keymaps
     expr = false,   -- use `expr` when creating keymaps
 }
 
 -- WARN beware the parens in the end!
 local normal, visual, insert = require("thefish.core.mappings")()
 
-wk.register(visual,{ mode = "v", noremap = true })
-wk.register(insert,{ mode = "i", noremap = true })
+wk.register(visual, { mode = "v", noremap = true, nowait = true, silent = true })
+wk.register(insert, { mode = "i", noremap = true, nowait = true, silent = true })
 wk.register(normal, wkOpts)
 
 vim.opt.mouse = ""
