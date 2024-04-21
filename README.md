@@ -1,5 +1,4 @@
-Just a collection of NeoVim Lua scripts, based on Lazy package manager.
-Tried to keep config minimal, with at least debugging, introspetion and completion functionality.
+NeoVim dotfiles, making editor a portable, extensible, but minimalist IDE, with at least debugging, introspetion and completion functionality.
 Have fun!
 
 Install:
@@ -9,7 +8,7 @@ mv ~/.config/nvim ~/.config/nvim.bak #create backup
 git clone --depth 1 https://github.com/thefish/nvim-lua-config.git ~/.config/nvim
 
 ```
-then run nvim and wait everything to download and install.
+then run nvim.
 
 full list of plugins
 ---
