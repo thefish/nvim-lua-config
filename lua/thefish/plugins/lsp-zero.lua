@@ -4,8 +4,8 @@ return {
     dependencies = {
         -- LSP Support
         { 'neovim/nvim-lspconfig' }, -- Required
-        { 'williamboman/mason.nvim'},
-        {'williamboman/mason-lspconfig.nvim'},
+        { 'williamboman/mason.nvim' },
+        { 'williamboman/mason-lspconfig.nvim' },
 
         -- Autocompletion
         { 'hrsh7th/cmp-nvim-lsp' }, -- Required
@@ -32,12 +32,12 @@ return {
                     end,
                 },
             },
-        },     -- Required
-        { 'hrsh7th/cmp-buffer' },   -- Optional, same buffer completion
-        { 'hrsh7th/cmp-path' },     -- Optional, file system path completion
+        },                        -- Required
+        { 'hrsh7th/cmp-buffer' }, -- Optional, same buffer completion
+        { 'hrsh7th/cmp-path' },   -- Optional, file system path completion
         -- { 'hrsh7th/cmp-cmdline' },  -- Optional, command line completion
     },
-    init = function ()
+    init = function()
         local lsp_zero = require('lsp-zero')
         require('mason').setup({})
         require('mason-lspconfig').setup({
@@ -53,6 +53,30 @@ return {
                     local lua_opts = lsp_zero.nvim_lua_ls()
                     require('lspconfig').lua_ls.setup(lua_opts)
                 end,
+
+                sqls = function()
+                    local sqls_opts = {}
+                    require('lspconfig').setup({
+                        on_attach = function(client, bufnr)
+                            require('sqls').on_attach(client, bufnr) -- require sqls.nvim
+                        end,
+                        settings = {
+                            sqls = {
+                                -- connections = {
+                                --     {
+                                --         driver = 'mysql',
+                                --         dataSourceName = 'root:root@tcp(127.0.0.1:13306)/world',
+                                --     },
+                                --     {
+                                --         driver = 'postgresql',
+                                --         dataSourceName =
+                                --         'host=127.0.0.1 port=15432 user=postgres password=mysecretpassword1234 dbname=dvdrental sslmode=disable',
+                                --     },
+                                -- },
+                            },
+                        },
+                    })
+                end
             },
         })
     end,
