@@ -1,0 +1,15 @@
+Things that are broken:
+
+[x] get todo-comments working again
+[ ] fix sessions saving (now saves single session over all projects)
+[ ] typdef+decl+defn+refr omnisearch with a single picker/finder for Telescope
+[ ] get debugger (nvim-dap, nvim-dap-go) working again
+
+
+Improvements:
+
+[ ] Save and stage changes on buffer leave
+[x] ir2 new theme
+[ ] get rid of unneeded plugins
+[ ] bind comment plugin to ctrl+/ in visual and normal mode
+[ ] move keybindings for autoformatter to mapping.lua
