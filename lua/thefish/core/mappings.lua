@@ -5,6 +5,14 @@ return function()
     --normal-mode-stuff
         {
             ["<leader>"] = {
+                ['<space>'] = { "<cmd>Telescope buffers<cr>", "[ ] Find buffers" },
+                ['/'] = { function()
+                    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+                        winblend = 10,
+                        previewer = false,
+                    })
+                end, "[/] Fuzzy fin in current file" },
+                ['?'] = { require('telescope.builtin').oldfiles, "[?] Find recently opened files" },
                 p = {
                     name = "project",
                     N = { "<cmd>Telescope find_files<cr>", "Find files by name" },
@@ -63,12 +71,12 @@ return function()
 
                 h = {
                     name = "git ops",
-                    S = { function() require('gitsigns').stage_hunk() end, "Stage hunk" },
-                    r = { function() require('gitsigns').reset_hunk() end, "Reset hunk" },
                     s = { function() require('gitsigns').stage_buffer() end, "Stage buffer" },
-                    u = { function() require('gitsigns').undo_stage_hunk() end, "Undo stage hunk" },
-                    U = { function() require('gitsigns').undo_stage_buffer() end, "Undo stage " },
-                    R = { function() require('gitsigns').reset_buffer() end, "Reset buffer" },
+                    u = { function() require('gitsigns').undo_stage_buffer() end, "Undo stage buffr" },
+                    r = { function() require('gitsigns').reset_buffer() end, "Reset buffer" },
+                    S = { function() require('gitsigns').stage_hunk() end, "Stage hunk" },
+                    R = { function() require('gitsigns').reset_hunk() end, "Reset hunk" },
+                    U = { function() require('gitsigns').undo_stage_hunk() end, "Undo stage hunk" },
                     P = { function() require('gitsigns').preview_hunk() end, "Preview hunk" },
                     b = { function() require('gitsigns').blame_line({ full = true }) end, "Blame line" },
                     d = { function() require('gitsigns').diffthis() end, "Diff this" },
@@ -80,7 +88,7 @@ return function()
 
 
                 o = {
-                    name = "Toggles",
+                    name = "T[o]ggle line hints",
                     b = { function() require('gitsigns').toggle_current_line_blame() end, "Current line blame" },
                     d = { function() require('gitsigns').toggle_deleted() end, "deleted" },
                 },
@@ -143,23 +151,23 @@ return function()
                     },
                 },
                 q = {
-                    name = 'sessions',
-                    s = { function() require('persistence').load() end, 'Load session for current working dir' },
-                    l = { function() require('persistence').load({ last = true }) end, 'Restore last session' },
+                    name = 'session',
+                    l = { function() require('persistence').load() end, 'Load session for current working dir' },
+                    s = { function() require('persistence').load({ last = true }) end, 'Restore last saved session' },
                     d = { function() require('persistence').stop() end, 'Do not save session on exit' },
                     t = { function() require('telescope.builtin').colorscheme({ enable_preview = true }) end, 'Change theme' }
                 },
 
                 s = { -- window management
-                    name = 'splits',
+                    name = 'window [s]plits',
                     ["v"] = { "<C-w>vbs", "Split window vertically" },
                     ["h"] = { "<C-w>s", "Split window horizontally" },
                     ["e"] = { "<C-w>=", "Make splits equal size" },
                     ["x"] = { "<cmd>close<CR>", "Close current split" },
                 },
 
-                t = {
-                    name = 'tabs',
+                t = { -- tabs
+                    name = '[t]abs',
                     ["o"] = { "<cmd>tabnew<CR>", "Open new tab" },
                     ["x"] = { "<cmd>tabclose<CR>", "Close current tab" },
                     ["n"] = { "<cmd>tabn<CR>", "Go to next tab" },
