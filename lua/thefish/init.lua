@@ -14,5 +14,3 @@ require("thefish.lazy")
 
 -- debugging
 require("thefish.debugging")
--- update sql conns
-require("thefish.o3-sql-config").update()
