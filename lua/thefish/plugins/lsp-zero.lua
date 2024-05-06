@@ -43,6 +43,26 @@ return {
         local lsp_zero = require('lsp-zero')
         require('mason').setup({})
         require('mason-lspconfig').setup({
+            ensure_installed = {
+                'bashls',
+                'buf',
+                'bufls',
+                'cssls',
+                'dockerls',
+                'gofumpt',
+                'goimports',
+                'golangci-lint',
+                'golangci_lint_ls',
+                'gopls',
+                'graphql',
+                'jsonls',
+                'lua_ls',
+                'pyright',
+                'rust_analyzer',
+                'tsserver',
+                'vimls',
+                'yamlls',
+            },
             handlers = {
                 -- this first function is the "default handler"
                 -- it applies to every language server without a "custom handler"
