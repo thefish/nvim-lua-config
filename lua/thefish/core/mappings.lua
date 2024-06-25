@@ -95,7 +95,7 @@ return function()
 
                 g = {
                     name = "introspection",
-                    D = { function() require('lsp').buf.declaration() end, "Go to declaration" },
+                    D = { function() require('telescope.builtin').lsp_declarations() end, "Go to declaration" },
                     d = { function() require('telescope.builtin').lsp_definitions() end, "Go to definition" },
                     i = { function() require('telescope.builtin').lsp_implementations() end, "Go to implementation" },
                     o = { function() require('telescope.builtin').lsp_type_definitions() end, "Go to type definitions" },

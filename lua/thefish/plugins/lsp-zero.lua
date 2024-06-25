@@ -45,13 +45,9 @@ return {
         require('mason-lspconfig').setup({
             ensure_installed = {
                 'bashls',
-                'buf',
                 'bufls',
                 'cssls',
                 'dockerls',
-                'gofumpt',
-                'goimports',
-                'golangci-lint',
                 'golangci_lint_ls',
                 'gopls',
                 'graphql',
