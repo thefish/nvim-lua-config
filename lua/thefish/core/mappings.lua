@@ -124,6 +124,7 @@ return function()
                         require('dapui').open({})
                         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false) -- Spaces buffers evenly
                     end, "Debug single test" },
+                    c = { ":DapContinue", "Continue to next BP" },
                     l = { function() require('dap-go').debug_last_test() end, "debug last test" },
                     v = { function() require('dap.ui.widgets').hover() end, "Inspect in-place" },
                     b = { function() require('dap').toggle_breakpoint() end, "Breakpoint toggle" },
