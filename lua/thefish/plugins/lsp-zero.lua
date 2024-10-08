@@ -55,9 +55,9 @@ return {
                 'lua_ls',
                 'pyright',
                 'rust_analyzer',
-                'tsserver',
                 'vimls',
                 'yamlls',
+                'phpactor',
             },
             handlers = {
                 -- this first function is the "default handler"
