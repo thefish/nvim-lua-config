@@ -30,6 +30,7 @@ local function nvimtree_on_attach(bufnr)
         local node = require('nvim-tree.api').tree.get_node_under_cursor()
         if not node then return end
         ntfns.git_add_path(node.absolute_path)
+        api.tree.reload() --force reload
     end, opts('Git add path'))
 
     vim.keymap.set('n', '<C-x>', function()
@@ -43,7 +44,6 @@ local function nvimtree_on_attach(bufnr)
         if not node then return end
         vim.cmd(':tabedit ' .. node.absolute_path)
     end, opts('New tab edit'))
-
 end
 
 return {

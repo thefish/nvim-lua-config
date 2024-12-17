@@ -1,4 +1,4 @@
-return {   -- Autoformat
+return { -- Autoformat
     'stevearc/conform.nvim',
     lazy = false,
     keys = {
@@ -32,6 +32,7 @@ return {   -- Autoformat
             -- is found.
             -- javascript = { { "prettierd", "prettier" } },
             go = { "goimports", "gofmt" },
+            php = { "php_cs_fixer" },
         },
     },
 }
