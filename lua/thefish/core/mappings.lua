@@ -106,6 +106,7 @@ return function()
 
                     k = { function() vim.lsp.buf.hover() end, "Hover help" },
                     K = { function() vim.lsp.buf.signature_help() end, "Signature help" },
+                    e = { function() vim.diagnostic.open_float() end, "display diag error" },
 
                 },
                 d = {
