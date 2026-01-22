@@ -36,7 +36,7 @@ return {
         -- (Default) Only show the documentation popup when manually triggered
         completion = {
             -- disable preselecting
-            list = { selection = { preselect = false, auto_insert = false } },
+            list = { selection = { preselect = true, auto_insert = false } },
             documentation = { auto_show = false },
         },
 
