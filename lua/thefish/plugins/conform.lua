@@ -32,7 +32,7 @@ return { -- Autoformat
             -- is found.
             -- javascript = { { "prettierd", "prettier" } },
             go = { "goimports", "gofmt" },
-            php = { "php_cs_fixer" },
+            php = { "pint", "php_cs_fixer" },
         },
     },
 }
