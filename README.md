@@ -1,4 +1,5 @@
-NeoVim dotfiles, making editor a portable, extensible, but minimalist IDE, with at least debugging, introspetion and completion functionality.
+NeoVim dotfiles, making editor a portable, extensible, but minimalist IDE, with at least debugging, introspection and completion functionality.
+
 Have fun!
 
 Install:
