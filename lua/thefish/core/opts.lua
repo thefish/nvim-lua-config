@@ -45,3 +45,5 @@ vim.api.nvim_create_autocmd('BufReadPost', { pattern = "*", command = "silent! n
 vim.opt.mouse = nil
 -- smart indent
 vim.opt.smartindent = true
+-- not selected completion
+-- vim.opt.completeopt = { "noselect" }
