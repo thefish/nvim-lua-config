@@ -2,12 +2,13 @@
 -- to set up keymaps
 return {
     'nvim-treesitter/nvim-treesitter',
+    branch = "main",
     build = function()
         local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
         ts_update()
     end,
     init = function()
-        require 'nvim-treesitter.configs'.setup {
+        require 'nvim-treesitter.config'.setup {
             -- A list of parser names, or "all" (the five listed parsers should always be installed)
             ensure_installed = {
                 "c",

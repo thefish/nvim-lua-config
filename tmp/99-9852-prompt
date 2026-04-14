@@ -1,0 +1,110 @@
+<DIRECTIONS>
+make it run
+</DIRECTIONS>
+<Context>
+You receive a selection in neovim that you need to replace with new code.
+The selection's contents may contain notes, incorporate the notes every time if there are some.
+consider the context of the selection and what you are suppose to be implementing
+<SELECTION_LOCATION>
+range(point(43,1),point(44,75))
+</SELECTION_LOCATION>
+<SELECTION_CONTENT>
+		-- Default list of enabled providers defined so that you can extend it
+		-- elsewhere in your config, without redefining it, due to `opts_extend`
+</SELECTION_CONTENT>
+<FILE_CONTAINING_SELECTION>
+return {
+	"saghen/blink.cmp",
+	-- optional: provides snippets for the snippet source
+	dependencies = { "rafamadriz/friendly-snippets" },
+
+	-- use a release tag to download pre-built binaries
+	version = "1.*",
+	-- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+	-- build = 'cargo build --release',
+	-- If you use nix, you can build from source using latest nightly rust with:
+	-- build = 'nix run .#build-plugin',
+
+	---@module 'blink.cmp'
+	---@type blink.cmp.Config
+	opts = {
+		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+		-- 'super-tab' for mappings similar to vscode (tab to accept)
+		-- 'enter' for enter to accept
+		-- 'none' for no mappings
+		--
+		-- All presets have the following mappings:
+		-- C-space: Open menu or open docs if already open
+		-- C-n/C-p or Up/Down: Select next/previous item
+		-- C-e: Hide menu
+		-- C-k: Toggle signature help (if signature.enabled = true)
+		--
+		-- See :h blink-cmp-config-keymap for defining your own keymap
+		keymap = { preset = "enter" },
+
+		appearance = {
+			-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+			-- Adjusts spacing to ensure icons are aligned
+			nerd_font_variant = "mono",
+		},
+
+		-- (Default) Only show the documentation popup when manually triggered
+		completion = {
+			-- disable preselecting
+			list = { selection = { preselect = false, auto_insert = false } },
+			documentation = { auto_show = false },
+		},
+
+		-- Default list of enabled providers defined so that you can extend it
+		-- elsewhere in your config, without redefining it, due to `opts_extend`
+		sources = {
+            default = { "lsp", "path", "snippets", "buffer" },
+            -- providers = {
+            --     minuet = {
+            --         name = 'minuet',
+            --         module = 'minuet.blink',
+            --         async = true,
+            --         -- Should match minuet.config.request_timeout * 1000,
+            --         -- since minuet.config.request_timeout is in seconds
+            --         timeout_ms = 3000,
+            --         score_offset = 50, -- Gives minuet higher priority among suggestions
+            --     },
+            -- },
+		},
+
+		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+		--
+		-- See the fuzzy documentation for more information
+		fuzzy = { implementation = "prefer_rust_with_warning" },
+
+		--disable in certain filetypes
+		enabled = function()
+			local disabled_filetypes = {
+				"NvimTree", --tree
+				"DressingInput", --inputs
+			}
+			return not vim.tbl_contains(disabled_filetypes, vim.bo.filetype)
+				and vim.bo.buftype ~= "prompt"
+				and vim.b.completion ~= false
+		end,
+	},
+	opts_extend = { "sources.default" },
+}
+</FILE_CONTAINING_SELECTION>
+
+</Context>
+
+<MustObey>
+NEVER alter any file other than TEMP_FILE.
+never provide the requested changes as conversational output. Return only the code.
+ONLY provide requested changes by writing the change to TEMP_FILE
+
+never attempt to read TEMP_FILE.
+It is purely for output.
+Previous contents, which may not exist, can be written over without worry
+After writing TEMP_FILE once you should be done.  Be done and end the session.
+
+</MustObey>
+<TEMP_FILE>./tmp/99-9852</TEMP_FILE>
