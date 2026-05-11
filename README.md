@@ -11,7 +11,7 @@ git clone --depth 1 https://github.com/thefish/nvim-lua-config.git ~/.config/nvi
 ```
 then run nvim.
 
-full list of plugins
+Full list of plugins
 ---
 see [plugin folder](lua/thefish/plugins)
 
@@ -19,7 +19,7 @@ Key mapping
 ---
 Extensively described in [mappings file](lua/thefish/core/mappings.lua)
 
-Also some hacks were added to nvim-tree:
+Also, some hacks were added to nvim-tree:
 
 ```Ctrl+f``` Find file in folder
 
