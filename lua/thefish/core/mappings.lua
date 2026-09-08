@@ -230,9 +230,14 @@ return function()
 				name = "introspection",
 				D = {
 					function()
-						require("telescope.builtin").lsp_declarations()
+						require("telescope.builtin").lsp_definitions()
 					end,
 					"Go to declaration",
+				},
+				t = {
+					function()
+						require("telescope.builtin").lsp_type_definitions()
+					end,
 				},
 				d = {
 					function()

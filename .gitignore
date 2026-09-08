@@ -7,3 +7,5 @@ sessions/*
 lazy-lock.json
 lua/thefish/plugins/irae.lua
 tmp/*
+
+graphify-out/
