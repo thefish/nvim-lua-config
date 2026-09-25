@@ -1,36 +1,86 @@
 return {
-	"mason-org/mason-lspconfig.nvim",
-	opts = {},
+	"williamboman/mason-lspconfig.nvim", -- Fixed organization name to williamboman
 	dependencies = {
-		{ "mason-org/mason.nvim", opts = {} },
+		{
+			"williamboman/mason.nvim",
+			opts = {
+				ensure_installed = {
+					"stylua",
+					"goimports",
+					"gofmt",
+					"pint",
+					"php-cs-fixer",
+					"prettierd",
+					"prettier",
+					"golangci-lint",
+					"php-debug-adapter",
+					"phpcs",
+					"pretty-php",
+					"prometheus-pint",
+					"protolint",
+				},
+			},
+		},
 		"neovim/nvim-lspconfig",
 	},
-	handlers = {
-		-- 1. The default handler (configures all other servers automatically)
-		function(server_name)
-			require("lspconfig")[server_name].setup({})
-		end,
+	opts = {
+		-- Cleaned up package names matching the official Mason registry
+		ensure_installed = {
+			"bash-language-server",
+			"golangci-lint-langserver",
+			"gopls",
+			"html-lsp",
+			"intelephense",
+			"lua-language-server",
+			"protols",
+			"ruff",
+			"rust-analyzer",
+			"yaml-language-server",
+			"vtsls",
+		},
+		handlers = {
+			-- 1. The default handler
+			function(server_name)
+				-- Guard clause to prevent ts_ls from loading if it sneaks onto your system
+				if server_name == "ts_ls" then
+					return
+				end
+				require("lspconfig")[server_name].setup({})
+			end,
 
-		-- 2. Your custom override handler specifically for gopls
-		["gopls"] = function()
-			require("lspconfig").gopls.setup({
-				-- Force a fallback workspace root if go.mod isn't found,
-				-- ensuring gopls attaches instead of remaining completely silent.
-				root_dir = function(fname)
-					local util = require("lspconfig.util")
-					return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
-				end,
-				settings = {
-					gopls = {
-						semanticTokens = true,
-						-- Recommended Go workspace features:
-						analyses = {
-							unusedparams = true,
+			-- 2. Custom override handler specifically for gopls
+			["gopls"] = function()
+				require("lspconfig").gopls.setup({
+					root_dir = function(fname)
+						local util = require("lspconfig.util")
+						return util.root_pattern("go.mod", ".git")(fname) or util.path.dirname(fname)
+					end,
+					settings = {
+						gopls = {
+							semanticTokens = true,
+							analyses = {
+								unusedparams = true,
+							},
+							staticcheck = true,
 						},
-						staticcheck = true,
 					},
-				},
-			})
-		end,
+				})
+			end,
+
+			-- 3. Custom override handler for vtsls
+			["vtsls"] = function()
+				require("lspconfig").vtsls.setup({
+					settings = {
+						typescript = {
+							updateImportsOnFileMove = { enabled = "always" },
+							inlayHints = {
+								parameterNames = { enabled = "all" },
+								parameterTypes = { enabled = true },
+							},
+						},
+					},
+				})
+			end,
+		},
 	},
 }
