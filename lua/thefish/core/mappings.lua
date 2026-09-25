@@ -1,317 +1,382 @@
 -- remaps
-
 return function()
 	return
 	--normal-mode-stuff
 	{
-		["<leader>"] = {
-			["<space>"] = { "<cmd>Telescope buffers<cr>", "[ ] Find buffers" },
-			["/"] = {
+		{
+			mode = "n",
+			{ "<leader>", group = "Leader" },
+			{
+				"<leader><space>",
+				"<cmd>Telescope buffers<cr>",
+				desc = "[ ] Find buffers",
+			},
+			{
+				"<leader>/",
 				function()
 					require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 						winblend = 10,
 						previewer = false,
 					}))
 				end,
-				"[/] Fuzzy fin in current file",
+				desc = "[/] Fuzzy fin in current file",
 			},
-			["?"] = { require("telescope.builtin").oldfiles, "[?] Find recently opened files" },
-			p = {
-				name = "project",
-				N = { "<cmd>Telescope find_files<cr>", "Find files by name" },
-				f = { "<cmd>Telescope find_files<cr>", "Find files by name" },
-				b = { "<cmd>Telescope buffers<cr>", "buffers" },
-				s = {
+			{ "<leader>?", require("telescope.builtin").oldfiles, desc = "[?] Find recently opened files" },
+
+			-- PROJECT GROUP
+			{ "<leader>p", group = "project" },
+			{
+				{ "<leader>pN", "<cmd>Telescope find_files<cr>", desc = "Find files by name" },
+				{ "<leader>pf", "<cmd>Telescope find_files<cr>", desc = "Find files by name" },
+				{ "<leader>pb", "<cmd>Telescope buffers<cr>", desc = "buffers" },
+				{
+					"<leader>ps",
 					function()
 						require("telescope.builtin").live_grep()
 					end,
-					"String search",
+					desc = "String search",
 				},
-				y = {
+				{
+					"<leader>py",
 					function()
 						vim.ui.input({ prompt = "search for symbol" }, function(msg)
 							require("telescope.builtin").lsp_workspace_symbols({ query = msg })
 						end)
 					end,
-					"Symbol search in workspace",
+					desc = "Symbol search in workspace",
 				},
-				u = {
+				{
+					"<leader>pu",
 					function()
 						require("telescope.builtin").treesitter()
 					end,
-					"Symbol search in current file",
+					desc = "Symbol search in current file",
 				},
-				r = {
+				{
+					"<leader>pr",
 					function()
 						require("telescope.builtin").lsp_references()
 					end,
-					"Reference search in workspace",
+					desc = "Reference search in workspace",
 				},
-				c = {
-					name = "Calls for word under cursor",
-					o = {
+
+				-- Calls Sub-Group
+				{ "<leader>pc", group = "Calls for word under cursor" },
+				{
+					{
+						"<leader>pco",
 						function()
 							require("telescope.builtin").lsp_outgoing_calls()
 						end,
-						"Outgoing calls",
+						desc = "Outgoing calls",
 					},
-					i = {
+					{
+						"<leader>pci",
 						function()
 							require("telescope.builtin").lsp_incoming_calls()
 						end,
-						"Incoming calls",
+						desc = "Incoming calls",
 					},
 				},
-				i = {
+
+				{
+					"<leader>pi",
 					function()
 						require("telescope.builtin").lsp_implementations()
 					end,
-					"implementations",
+					desc = "implementations",
 				},
-				d = {
+				{
+					"<leader>pd",
 					function()
 						require("telescope.builtin").lsp_definitions()
 					end,
-					"definitions",
+					desc = "definitions",
 				},
-				t = {
+				{
+					"<leader>pt",
 					function()
 						require("telescope.builtin").lsp_type_definitions()
 					end,
-					"type definitions",
+					desc = "type definitions",
 				},
-				x = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
-				g = {
-					name = "git",
-					g = { "<cmd>Telescope git_files<cr>", "Git files find" },
-					c = {
+				{ "<leader>px", "<cmd>Telescope oldfiles<cr>", desc = "Recent files" },
+
+				-- Git Sub-Group
+				{ "<leader>pg", group = "git" },
+				{
+					{ "<leader>pgg", "<cmd>Telescope git_files<cr>", desc = "Git files find" },
+					{
+						"<leader>pgc",
 						function()
 							require("thefish.changed-on-branch")(Rtdir)
 						end,
-						"Files changed on branch",
+						desc = "Files changed on branch",
 					},
-					D = { "<cmd>DiffviewOpen origin/master..HEAD<cr>", "Show diffview to origin/master" },
-					m = {
+					{
+						"<leader>pgD",
+						"<cmd>DiffviewOpen origin/master..HEAD<cr>",
+						desc = "Show diffview to origin/master",
+					},
+					{
+						"<leader>pgm",
 						function()
 							require("telescope.builtin").git_commits()
 						end,
-						"git commits",
+						desc = "git commits",
 					},
-					s = {
+					{
+						"<leader>pgs",
 						function()
-							require("telescope.builtin").git_status()
+							require("thefish.git-status")()
 						end,
-						"git status",
+						desc = "git status",
 					},
-					t = { "<cmd>Telescope git_stash<cr>", "Stash" },
-					b = {
+					{ "<leader>pgt", "<cmd>Telescope git_stash<cr>", desc = "Stash" },
+					{
+						"<leader>pgb",
 						function()
-							require("telescope.builtin").git_bcommits()
+							require("thefish.git-bcommits")()
 						end,
-						"current bufffer commits",
+						desc = "current buffer commits",
 					},
-					-- l = { function () require('telescope.builtin').git_bcommits_range() end, "range of lines commits" },
-					r = {
+					{
+						"<leader>pgr",
 						function()
-							require("telescope.builtin").git_branches()
+							require("thefish.git-branches")()
 						end,
-						"branches",
+						desc = "branches",
 					},
 				},
-				z = { "<cmd>TodoTelescope<cr>", "List TODO, FIXME and such stuff" },
+				{ "<leader>pz", "<cmd>TodoTelescope<cr>", desc = "List TODO, FIXME and such stuff" },
 			},
-			w = {
-				name = "word",
-				c = { "viwu~W", "Capitalize" },
-				l = { "viwuW", "lowercase" },
-				u = { "viwUW", "UPPERCASE" },
-				s = {
+
+			-- WORD GROUP
+			{ "<leader>w", group = "word" },
+			{
+				{ "<leader>wc", "viwu~W", desc = "Capitalize" },
+				{ "<leader>wl", "viwuW", desc = "lowercase" },
+				{ "<leader>wu", "viwUW", desc = "UPPERCASE" },
+				{
+					"<leader>ws",
 					function()
 						require("telescope.builtin").grep_string()
 					end,
-					"Search in project",
+					desc = "Search in project",
 				},
 			},
 
-			h = {
-				name = "git ops",
-				s = {
+			-- GIT OPS GROUP
+			{ "<leader>h", group = "git ops" },
+			{
+				{
+					"<leader>hs",
 					function()
 						require("gitsigns").stage_buffer()
 					end,
-					"Stage buffer",
+					desc = "Stage buffer",
 				},
-				u = {
+				{
+					"<leader>hu",
 					function()
 						require("gitsigns").undo_stage_buffer()
 					end,
-					"Undo stage buffr",
+					desc = "Undo stage buffr",
 				},
-				r = {
+				{
+					"<leader>hr",
 					function()
 						require("gitsigns").reset_buffer()
 					end,
-					"Reset buffer",
+					desc = "Reset buffer",
 				},
-				S = {
+				{
+					"<leader>hS",
 					function()
 						require("gitsigns").stage_hunk()
 					end,
-					"Stage hunk",
+					desc = "Stage hunk",
 				},
-				R = {
+				{
+					"<leader>hR",
 					function()
 						require("gitsigns").reset_hunk()
 					end,
-					"Reset hunk",
+					desc = "Reset hunk",
 				},
-				U = {
+				{
+					"<leader>hU",
 					function()
 						require("gitsigns").undo_stage_hunk()
 					end,
-					"Undo stage hunk",
+					desc = "Undo stage hunk",
 				},
-				P = {
+				{
+					"<leader>hP",
 					function()
 						require("gitsigns").preview_hunk()
 					end,
-					"Preview hunk",
+					desc = "Preview hunk",
 				},
-				b = {
+				{
+					"<leader>hb",
 					function()
 						require("gitsigns").blame_line({ full = true })
 					end,
-					"Blame line",
+					desc = "Blame line",
 				},
-				d = {
+				{
+					"<leader>hd",
 					function()
 						require("gitsigns").diffthis()
 					end,
-					"Diff this",
+					desc = "Diff this",
 				},
-				D = {
+				{
+					"<leader>hD",
 					function()
 						require("gitsigns").diffthis("~")
 					end,
-					"Diff this",
+					desc = "Diff this",
 				},
-				v = { "<Esc>:DiffviewOpen origin/master... --imply-local<cr>", "DiffView this" },
-				c = {
+				{ "<leader>hv", "<Esc>:DiffviewOpen origin/master... --imply-local<cr>", desc = "DiffView this" },
+				{
+					"<leader>hc",
 					function()
 						require("thefish.git-commit-input")()
 					end,
-					"git commit",
+					desc = "git commit",
 				},
-				p = {
+				{
+					"<leader>hp",
 					function()
 						require("thefish.git-push-variants").git_push_variants_menu()
 					end,
-					"git push variants",
+					desc = "git push variants",
 				},
 			},
 
-			o = {
-				name = "T[o]ggle line hints",
-				b = {
+			-- TOGGLE LINE HINTS
+			{ "<leader>o", group = "T[o]ggle line hints" },
+			{
+				{
+					"<leader>ob",
 					function()
 						require("gitsigns").toggle_current_line_blame()
 					end,
-					"Current line blame",
+					desc = "Current line blame",
 				},
-				d = {
+				{
+					"<leader>od",
 					function()
 						require("gitsigns").toggle_deleted()
 					end,
-					"deleted",
+					desc = "deleted",
 				},
 			},
 
-			g = {
-				name = "introspection",
-				D = {
+			-- INTROSPECTION GROUP
+			{ "<leader>g", group = "introspection" },
+			{
+				{
+					"<leader>gD",
 					function()
 						require("telescope.builtin").lsp_definitions()
 					end,
-					"Go to declaration",
+					desc = "Go to declaration",
 				},
-				t = {
+				{
+					"<leader>gt",
 					function()
 						require("telescope.builtin").lsp_type_definitions()
 					end,
 				},
-				d = {
+				{
+					"<leader>gd",
 					function()
 						require("telescope.builtin").lsp_definitions()
 					end,
-					"Go to definition",
+					desc = "Go to definition",
 				},
-				i = {
+				{
+					"<leader>gi",
 					function()
 						require("telescope.builtin").lsp_implementations()
 					end,
-					"Go to implementation",
+					desc = "Go to implementation",
 				},
-				o = {
+				{
+					"<leader>go",
 					function()
 						require("telescope.builtin").lsp_type_definitions()
 					end,
-					"Go to type definitions",
+					desc = "Go to type definitions",
 				},
-				r = {
+				{
+					"<leader>gr",
 					function()
 						require("telescope.builtin").lsp_references()
 					end,
-					"Go to references",
+					desc = "Go to references",
 				},
-				f = {
+				{
+					"<leader>gf",
 					function()
 						vim.lsp.buf.format({ async = true })
 					end,
-					"Reformat code",
+					desc = "Reformat code",
 				},
-				a = {
+				{
+					"<leader>ga",
 					function()
 						vim.lsp.buf.code_action()
 					end,
-					"Code action",
+					desc = "Code action",
 				},
-				n = {
+				{
+					"<leader>gn",
 					function()
 						vim.lsp.buf.rename()
 					end,
-					"Rename symbol",
+					desc = "Rename symbol",
 				},
-
-				k = {
+				{
+					"<leader>gk",
 					function()
 						vim.lsp.buf.hover()
 					end,
-					"Hover help",
+					desc = "Hover help",
 				},
-				K = {
+				{
+					"<leader>gK",
 					function()
 						vim.lsp.buf.signature_help()
 					end,
-					"Signature help",
+					desc = "Signature help",
 				},
-				e = {
+				{
+					"<leader>ge",
 					function()
 						vim.diagnostic.open_float()
 					end,
-					"display diag error",
+					desc = "display diag error",
 				},
 			},
-			d = {
-				name = "debug",
-				s = {
+
+			-- DEBUG GROUP
+			{ "<leader>d", group = "debug" },
+			{
+				{
+					"<leader>ds",
 					function()
 						require("dap").continue()
 						require("dapui").open({})
-						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false) -- Spaces buffers evenly
+						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false)
 					end,
-					"Start debugging session",
+					desc = "Start debugging session",
 				},
-				t = {
+				{
+					"<leader>dt",
 					function()
 						if vim.bo.filetype == "go" then
 							require("dap-go").debug_test()
@@ -319,254 +384,281 @@ return function()
 							require("dap").debug_test()
 						end
 						require("dapui").open({})
-						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false) -- Spaces buffers evenly
+						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false)
 					end,
-					"Debug single test",
+					desc = "Debug single test",
 				},
-				c = { "<cmd>DapContinue<cr>", "Continue to next BP" },
-				l = {
+				{ "<leader>dc", "<cmd>DapContinue<cr>", desc = "Continue to next BP" },
+				{
+					"<leader>dl",
 					function()
 						require("dap-go").debug_last_test()
 					end,
-					"debug last test",
+					desc = "debug last test",
 				},
-				v = {
+				{
+					"<leader>dv",
 					function()
 						require("dap.ui.widgets").hover()
 					end,
-					"Inspect in-place",
+					desc = "Inspect in-place",
 				},
-				b = {
+				{
+					"<leader>db",
 					function()
 						require("dap").toggle_breakpoint()
 					end,
-					"Breakpoint toggle",
+					desc = "Breakpoint toggle",
 				},
-				n = {
+				{
+					"<leader>dn",
 					function()
 						require("dap").step_over()
 					end,
-					"Step over",
+					desc = "Step over",
 				},
-				i = {
+				{
+					"<leader>di",
 					function()
 						require("dap").step_into()
 					end,
-					"Step into",
+					desc = "Step into",
 				},
-				o = {
+				{
+					"<leader>do",
 					function()
 						require("dap").step_out()
 					end,
-					"Step out",
+					desc = "Step out",
 				},
-				C = {
+				{
+					"<leader>dC",
 					function()
 						require("dap").clear_breakpoints()
 						require("notify")("Breakpoints cleared", "warn")
 					end,
-					"Breakpoints clear",
+					desc = "Breakpoints clear",
 				},
-				e = {
+				{
+					"<leader>de",
 					function()
 						require("dapui").close({})
 						require("dap").terminate()
 						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false)
 						require("notify")("Debugger session ended", "warn")
 					end,
-					"Stop debugging",
+					desc = "Stop debugging",
 				},
-				r = {
-					name = "run test",
-					r = { "<cmd>TestNearest<cr>", "Run nearest test" },
-					s = { "<cmd>TestSuite<cr>", "Run test suite" },
-					f = { "<cmd>TestFile<cr>", "Run all tests for the current file" },
-					l = { "<cmd>TestLast<cr>", "Rerun last test" },
-					o = { "<cmd>TestVisit<cr>", "Open last test in current buffer" },
-					x = { "<cmd>TestEdit<cr>", "Fix tests for current file" },
+
+				-- Run Test Sub-Group
+				{ "<leader>dr", group = "run test" },
+				{
+					{ "<leader>drr", "<cmd>TestNearest<cr>", desc = "Run nearest test" },
+					{ "<leader>drs", "<cmd>TestSuite<cr>", desc = "Run test suite" },
+					{ "<leader>drf", "<cmd>TestFile<cr>", desc = "Run all tests for the current file" },
+					{ "<leader>drl", "<cmd>TestLast<cr>", desc = "Rerun last test" },
+					{ "<leader>dro", "<cmd>TestVisit<cr>", desc = "Open last test in current buffer" },
+					{ "<leader>drx", "<cmd>TestEdit<cr>", desc = "Fix tests for current file" },
 				},
 			},
-			q = {
-				name = "session",
-				l = {
+
+			-- SESSION GROUP
+			{ "<leader>q", group = "session" },
+			{
+				{
+					"<leader>ql",
 					function()
 						require("persistence").load()
 					end,
-					"Load session for current working dir",
+					desc = "Load session for current working dir",
 				},
-				s = {
+				{
+					"<leader>qs",
 					function()
 						require("persistence").load({ last = true })
 					end,
-					"Restore last saved session",
+					desc = "Restore last saved session",
 				},
-				d = {
+				{
+					"<leader>qd",
 					function()
 						require("persistence").stop()
 					end,
-					"Do not save session on exit",
+					desc = "Do not save session on exit",
 				},
-				t = {
+				{
+					"<leader>qt",
 					function()
 						require("telescope.builtin").colorscheme({ enable_preview = true })
 					end,
-					"Change theme",
+					desc = "Change theme",
 				},
 			},
 
-			s = { -- window management
-				name = "window [s]plits",
-				["v"] = { "<C-w>vbs", "Split window vertically" },
-				["h"] = { "<C-w>s", "Split window horizontally" },
-				["e"] = { "<C-w>=", "Make splits equal size" },
-				["x"] = { "<cmd>close<CR>", "Close current split" },
+			-- WINDOW SPLITS GROUP
+			{ "<leader>s", group = "window [s]plits" },
+			{
+				{ "<leader>sv", "<C-w>vbs", desc = "Split window vertically" },
+				{ "<leader>sh", "<C-w>s", desc = "Split window horizontally" },
+				{ "<leader>se", "<C-w>=", desc = "Make splits equal size" },
+				{ "<leader>sx", "<cmd>close<CR>", desc = "Close current split" },
 			},
 
-			t = { -- tabs
-				name = "[t]abs",
-				["o"] = { "<cmd>tabnew<CR>", "Open new tab" },
-				["x"] = { "<cmd>tabclose<CR>", "Close current tab" },
-				["n"] = { "<cmd>tabn<CR>", "Go to next tab" },
-				["p"] = { "<cmd>tabp<CR>", "Go to previous tab" },
-				["f"] = { "<cmd>tabnew %<CR>", "Open current buffer in new tab" },
+			-- TABS GROUP
+			{ "<leader>t", group = "[t]abs" },
+			{
+				{ "<leader>to", "<cmd>tabnew<CR>", desc = "Open new tab" },
+				{ "<leader>tx", "<cmd>tabclose<CR>", desc = "Close current tab" },
+				{ "<leader>tn", "<cmd>tabn<CR>", desc = "Go to next tab" },
+				{ "<leader>tp", "<cmd>tabp<CR>", desc = "Go to previous tab" },
+				{ "<leader>tf", "<cmd>tabnew %<CR>", desc = "Open current buffer in new tab" },
 			},
-			["ee"] = { "oif err != nil {<cr>return err<cr>}<cr><esc>kvap=$", "golang if err != nil" },
-		},
 
-		["gr"] = {
-			function()
-				require("telescope.builtin").lsp_references()
-			end,
-			"Find references",
-		},
-		["gD"] = {
-			function()
-				require("lsp").buf.declaration()
-			end,
-			"Go to declaration",
-		},
-		["gd"] = {
-			function()
-				require("telescope.builtin").lsp_definitions()
-			end,
-			"Go to definition",
-		},
-		["gi"] = {
-			function()
-				require("telescope.builtin").lsp_implementations()
-			end,
-			"Go to implementation",
-		},
-		["go"] = {
-			function()
-				require("telescope.builtin").lsp_type_definitions()
-			end,
-			"Go to type definitions",
-		},
-		["[p"] = {
-			function()
-				vim.diagnostic.goto_next()
-			end,
-			"Diag next",
-		},
-		["]p"] = {
-			function()
-				vim.diagnostic.goto_prev()
-			end,
-			"Diag prev",
-		},
-		["<C-b>"] = {
-			function()
-				require("dap").toggle_breakpoint()
-			end,
-			"Breakpoint toggle",
-		},
+			{ "<leader>ee", "oif err != nil {<cr>return err<cr>}<cr><esc>kvap=$", desc = "golang if err != nil" },
 
-		["]c"] = {
-			function()
-				if vim.wo.diff then
-					return "]c"
-				end
-				vim.schedule(function()
-					require("gitsigns").next_hunk()
-				end)
-				return "<Ignore>"
-			end,
-			"Next hunk",
-		},
-		["[c"] = {
-			function()
-				if vim.wo.diff then
-					return "[c"
-				end
-				vim.schedule(function()
-					require("gitsigns").prev_hunk()
-				end)
-				return "<Ignore>"
-			end,
-			"Prev hunk",
-		},
-
-		{
-			-- Common stuff
-			["<C-z>"] = { "u<cr>", "Undo on ctrl+z" },
-			["<F2>"] = { "<cmd>w<cr>", "Save file" },
-			["<C-p>"] = {
+			-- Non-leader Normal Mappings
+			{
+				"gr",
+				function()
+					require("telescope.builtin").lsp_references()
+				end,
+				desc = "Find references",
+			},
+			{
+				"gD",
+				function()
+					require("lsp").buf.declaration()
+				end,
+				desc = "Go to declaration",
+			},
+			{
+				"gd",
+				function()
+					require("telescope.builtin").lsp_definitions()
+				end,
+				desc = "Go to definition",
+			},
+			{
+				"gi",
+				function()
+					require("telescope.builtin").lsp_implementations()
+				end,
+				desc = "Go to implementation",
+			},
+			{
+				"go",
+				function()
+					require("telescope.builtin").lsp_type_definitions()
+				end,
+				desc = "Go to type definitions",
+			},
+			{
+				"[p",
+				function()
+					vim.diagnostic.goto_next()
+				end,
+				desc = "Diag next",
+			},
+			{
+				"]p",
+				function()
+					vim.diagnostic.goto_prev()
+				end,
+				desc = "Diag prev",
+			},
+			{
+				"<C-b>",
+				function()
+					require("dap").toggle_breakpoint()
+				end,
+				desc = "Breakpoint toggle",
+			},
+			{
+				"]c",
+				function()
+					if vim.wo.diff then
+						return "]c"
+					end
+					vim.schedule(function()
+						require("gitsigns").next_hunk()
+					end)
+					return "<Ignore>"
+				end,
+				desc = "Next hunk",
+			},
+			{
+				"[c",
+				function()
+					if vim.wo.diff then
+						return "[c"
+					end
+					vim.schedule(function()
+						require("gitsigns").prev_hunk()
+					end)
+					return "<Ignore>"
+				end,
+				desc = "Prev hunk",
+			},
+			{ "<C-z>", "u<cr>", desc = "Undo on ctrl+z" },
+			{ "<F2>", "<cmd>w<cr>", desc = "Save file" },
+			{
+				"<C-p>",
 				":set paste<CR>i<CR><CR><Esc>k:.!xclip -o<CR>JxkJx:set nopaste<CR>",
-				"copy to system clipoard",
+				desc = "copy to system clipboard",
 			},
-			["<Esc><Esc>"] = { "<Esc>:nohl<CR>", "double escape to disable highlight" },
-			-- set moving between windows to ctrl+arrows
-			["<C-Right>"] = { "<c-w>l", "" },
-			["<C-Left>"] = { "<c-w>h", "" },
-			["<C-Up>"] = { "<c-w>k", "" },
-			["<C-Down>"] = { "<c-w>j", "" },
-
-			--center on Ctrl+d and Ctrl+u
-			["<C-d>"] = { "<c-d>zz", "Move half page down and center" },
-			["<C-u>"] = { "<c-u>zz", "Move half page down and center" },
-
-			["<C-j>"] = { "<cmd>cnext<cr>", "Move to next entry in quickfix list" },
-			["<C-k>"] = { "<cmd>cprev<cr>", "Move to previous entry in quickfix list" },
+			{ "<Esc><Esc>", "<Esc>:nohl<CR>", desc = "double escape to disable highlight" },
+			{ "<C-Right>", "<c-w>l", desc = "Move to right window" },
+			{ "<C-Left>", "<c-w>h", desc = "Move to left window" },
+			{ "<C-Up>", "<c-w>k", desc = "Move to top window" },
+			{ "<C-Down>", "<c-w>j", desc = "Move to bottom window" },
+			{ "<C-d>", "<c-d>zz", desc = "Move half page down and center" },
+			{ "<C-u>", "<c-u>zz", desc = "Move half page down and center" },
+			{ "<C-j>", "<cmd>cnext<cr>", desc = "Move to next entry in quickfix list" },
+			{ "<C-k>", "<cmd>cprev<cr>", desc = "Move to previous entry in quickfix list" },
 		},
 	},
 	-- visual mode stuff
 	{
-		["jh"] = { "<esc>", "exit visual mode on fast jh" }, -- cause jj is used for selection often
-		-- yyp instead of that akshually
-		-- ["<c-d>"] = { "<esc>yypi", "duplicate line" },
-		["<C-z>"] = { "<Esc>u<cr>v", "Undo on ctrl+z" },
-		["<F2>"] = { "<esc><cmd>w<cr>v", "Save file" },
-		["<C-y>"] = {
-			":<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u",
-			"paste from system clipboard",
-		},
-		["<C-l>"] = { "<cmd>Telescope git_bcommits<cr>", "Commits for selected lines" },
+		{
+			mode = "v",
+			{ "jh", "<esc>", desc = "exit visual mode on fast jh" },
+			{ "<C-z>", "<Esc>u<cr>v", desc = "Undo on ctrl+z" },
+			{ "<F2>", "<esc><cmd>w<cr>v", desc = "Save file" },
+			{
+				"<C-y>",
+				":<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!xclip -selection c<CR>u",
+				desc = "paste from system clipboard",
+			},
+			{ "<C-l>", "<cmd>Telescope git_bcommits<cr>", desc = "Commits for selected lines" },
 
-		["<leader>"] = {
-			h = {
-				name = "git ops",
-				s = {
+			{ "<leader>h", group = "git ops" },
+			{
+				{
+					"<leader>hs",
 					function()
 						require("gitsigns").stage_hunk()({ vim.fn.line("."), vim.fn.line("v") })
 					end,
-					"stage selected",
+					desc = "stage selected",
 				},
-				r = {
+				{
+					"<leader>hr",
 					function()
 						require("gitsigns").reset_hunk()({ vim.fn.line("."), vim.fn.line("v") })
 					end,
-					"reset selected",
+					desc = "reset selected",
 				},
 			},
 		},
 	},
 	-- insert mode stuff
 	{
-		["<C-z>"] = { "<Esc>u<cr>i", "Undo on ctrl+z" },
-		["jh"] = { "<esc>", "exit insert mode on fast jh" },
-		["<c-d>"] = { "<esc>yypi", "duplicate line" },
-		["<c-y>"] = { "<esc>ddki", "delete line" },
-		["<F2>"] = { "<esc><cmd>w<cr>i", "Save file" },
+		{
+			mode = "i",
+			{ "<C-z>", "<Esc>u<cr>i", desc = "Undo on ctrl+z" },
+			{ "jh", "<esc>", desc = "exit insert mode on fast jh" },
+			{ "<c-d>", "<esc>yypi", desc = "duplicate line" },
+			{ "<c-y>", "<esc>ddki", desc = "delete line" },
+			{ "<F2>", "<esc><cmd>w<cr>i", desc = "Save file" },
+		},
 	}
 end
