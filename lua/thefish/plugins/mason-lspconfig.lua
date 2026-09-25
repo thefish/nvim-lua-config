@@ -26,16 +26,16 @@ return {
 	opts = {
 		-- Cleaned up package names matching the official Mason registry
 		ensure_installed = {
-			"bash-language-server",
-			"golangci-lint-langserver",
+			"bashls",
+			"golangci_lint_ls",
 			"gopls",
-			"html-lsp",
+			"html",
 			"intelephense",
-			"lua-language-server",
+			"lua_ls",
 			"protols",
 			"ruff",
-			"rust-analyzer",
-			"yaml-language-server",
+			"rust_analyzer",
+			"yamlls",
 			"vtsls",
 		},
 		handlers = {
